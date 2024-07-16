@@ -1,0 +1,5 @@
+__pycache__/
+GOOGLE_APPLICATION_CREDENTIALS.json
+venv/
+.env/
+*.env

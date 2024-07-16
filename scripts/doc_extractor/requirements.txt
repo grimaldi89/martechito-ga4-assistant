@@ -1,0 +1,16 @@
+qdrant-client==1.10.1
+langchain-qdrant==0.1.1
+langchain-openai==0.1.14
+langchain-text-splitters==0.2.2
+langchain==0.2.7
+langchain-community==0.2.7
+langchain-google-community==1.0.6
+flask==3.0.3
+google-cloud-storage==2.3.0
+unstructured==0.14.10
+unstructured[md]==0.14.10
+google-cloud-bigquery==2.34.2
+aiohttp==3.8.3
+asyncio==3.4.3
+html2text==2024.2.26
+python-dotenv==1.0.1
