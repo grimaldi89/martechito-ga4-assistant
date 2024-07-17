@@ -1,3 +1,3 @@
 #!/bin/sh
-streamlit run streamlit_app.py
+python inject_ga.py && streamlit run streamlit_app.py
 

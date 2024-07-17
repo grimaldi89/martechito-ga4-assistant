@@ -21,4 +21,3 @@ ENTRYPOINT ["/app/start.sh"]
 
 # You need to define the environment variables QDRANT_URL, QDRANT_API_KEY and OPENAI_API_KEY.
 # After that, you can build the image and run the container with the following commands:
-#docker run -p 8501:8501 -e QDRANT_URL=$QDRANT_URL -e QDRANT_API_KEY=$QDRANT_API_KEY -e OPENAI_API_KEY=$OPENAI_API_KEY streamlit_app

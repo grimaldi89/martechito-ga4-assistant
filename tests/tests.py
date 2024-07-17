@@ -1,7 +1,7 @@
 import unittest
 import requests
 
-gcp = "https://chatbot-ga4-n4ttrget4a-uc.a.run.app"
+gcp = "URL"
 local = "http://localhost:8080"
 url_global = local
 

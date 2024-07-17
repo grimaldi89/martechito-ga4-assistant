@@ -5,23 +5,37 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain , create_history_aware_retriever
 from langchain_core.messages import HumanMessage
+from langchain.globals import set_verbose
 import os
 import streamlit as st
+from dotenv import load_dotenv
+import logging
 
+set_verbose(True)
+logging.basicConfig(level=logging.INFO)
+load_dotenv()
 
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 QDRANT_URL = os.getenv("QDRANT_URL")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+QDRANT_PORT = os.getenv("QDRANT_PORT")
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME")
+MODEL = os.getenv("MODEL")
 
-model = "gpt-4o"
-llm = ChatOpenAI(model_name=model, temperature=0)
-collection_name = "ga4-collection"
-client = QdrantClient(url=QDRANT_URL, port=6333, api_key=QDRANT_API_KEY)
-embeddings = OpenAIEmbeddings(model="text-embedding-3-large", api_key=OPENAI_API_KEY)
+if not all([QDRANT_API_KEY, QDRANT_URL, OPENAI_API_KEY, QDRANT_PORT, EMBEDDING_MODEL, COLLECTION_NAME, MODEL]):
+        logging.error("One or more environment variables are missing.")
+        raise EnvironmentError("One or more environment variables are missing.")
+
+
+llm = ChatOpenAI(model_name=MODEL, temperature=0)
+
+client = QdrantClient(url=QDRANT_URL, port=QDRANT_PORT, api_key=QDRANT_API_KEY)
+embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY)
 
 vectorstore = Qdrant(
         client=client,
-        collection_name=collection_name,
+        collection_name=COLLECTION_NAME,
         embeddings=embeddings
 )
 retriever = vectorstore.as_retriever()
@@ -88,7 +102,7 @@ def main():
 
     It leverages a Retrieval-Augmented Generation (RAG) model that integrates OpenAI's GPT-4 with a Qdrant vector store to provide relevant responses to user inquiries.
 
-    Feedback and contributions are welcome! Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/rodolfo-grimaldi/) or [GitHub](https://github.com/grimaldi89/chatbot-ga4).
+    Feedback and contributions are welcome! Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/rodolfo-grimaldi/) or [GitHub](https://github.com/grimaldi89/ga4-ai-assistant).
             """)
         st.sidebar.markdown("""
             ### Interactions
@@ -98,7 +112,7 @@ def main():
             """)
         # Adicionando imagens com links para LinkedIn e GitHub
         linkedin_url = "https://www.linkedin.com/in/rodolfo-grimaldi/"
-        github_url = "https://github.com/grimaldi89/chatbot-ga4"
+        github_url = "https://github.com/grimaldi89/ga4-ai-assistant"
         linkedin_image = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
         github_image = "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
 
@@ -118,7 +132,7 @@ def main():
             st.markdown(message["content"])
 
     # React to user input
-    if prompt := st.chat_input("Abra seu coração"):
+    if prompt := st.chat_input("Type your message here..."):
         # Display user message in chat message container
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -129,8 +143,7 @@ def main():
         # Invoke QA model
         last_four_interactions = st.session_state.conversation[-4:]
         response = rag_chain.invoke({"input": prompt, "chat_history": last_four_interactions})
-        print(response)
-        print("/n")
+        logging.info(response)
 
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
