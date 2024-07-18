@@ -102,7 +102,7 @@ def main():
 
     It leverages a Retrieval-Augmented Generation (RAG) model that integrates OpenAI's GPT-4 with a Qdrant vector store to provide relevant responses to user inquiries.
 
-    Feedback and contributions are welcome! Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/rodolfo-grimaldi/) or [GitHub](https://github.com/grimaldi89/ga4-ai-assistant).
+    Feedback and contributions are welcome! Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/rodolfo-grimaldi/) or [GitHub](https://github.com/grimaldi89/martechito-ga4-assistant).
             """)
         st.sidebar.markdown("""
             ### Interactions
@@ -112,7 +112,7 @@ def main():
             """)
         # Adicionando imagens com links para LinkedIn e GitHub
         linkedin_url = "https://www.linkedin.com/in/rodolfo-grimaldi/"
-        github_url = "https://github.com/grimaldi89/ga4-ai-assistant"
+        github_url = "https://github.com/grimaldi89/martechito-ga4-assistant"
         linkedin_image = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
         github_image = "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
 
