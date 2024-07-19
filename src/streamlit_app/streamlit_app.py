@@ -106,7 +106,7 @@ def main():
             """)
         st.sidebar.markdown("""
             ### Interactions
-    The chatbot is designed to provide information about GA4, the latest version of Google Analytics. It can answer questions about GA4's features, implementation, and best practices.
+    The chatbot is designed to provide information about GA4, the latest version of Google Analytics. It can answer questions about GA4's features, implementation and best practices.
 
     Ps: The chatbot is still in development, so it may not have all the answers you're looking for or may provide incorrect information. Please use it at your own discretion.
             """)
