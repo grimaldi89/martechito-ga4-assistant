@@ -32,13 +32,13 @@ Before installation, you must:
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/grimaldi89/martechito-ga4-assistant
+    git clone https://github.com/grimaldi89/martechito-ga4-assistant.git
     ```
 
 2. **Navigate to the project directory:**
 
     ```bash
-    cd ga4-ai-assistant/src/streamlit_app_local
+    cd martechito-ga4-assistant/src/streamlit_app_local
     ```
 
 3. **Create and activate a virtual environment (optional but recommended):**
@@ -73,7 +73,7 @@ Before installation, you must:
     ```bash
     python3 load_qdrant_vector_db.py
     ```
-You should run this file only once, otherwise it will generate duplicated chunks in the DB.
+    You should run this file only once, otherwise it will generate duplicated chunks in the DB.
 
 2. **Start the Streamlit application:**
 
@@ -81,7 +81,7 @@ You should run this file only once, otherwise it will generate duplicated chunks
     streamlit run streamlit_app.py
     ```
 
-   This will start the Streamlit server. You should see output indicating the local URL where the app is being served, typically `http://localhost:8501`.
+    This will start the Streamlit server. You should see output indicating the local URL where the app is being served, typically `http://localhost:8501`.
 
 ## Using Martechito
 
@@ -90,7 +90,6 @@ Once Martechito is up and running, interact with it by typing your GA4-related q
 It’s important to note that the Qdrant settings and `ga4_documents.json` file can be customized to fit your specific needs. Please be aware that only a portion of the documents is mapped in the JSON file.
 
 Check the sidebar for additional features and information that might enhance your experience with Martechito.
-
 
 ## Contributions
 
