@@ -12,7 +12,14 @@ import nest_asyncio
 import logging
 import datetime
 import os
+from google.auth import default
 
+
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',
+          'https://www.googleapis.com/auth/bigquery',
+          'https://www.googleapis.com/auth/drive.readonly'
+          ]
+credentials, project = default(scopes=SCOPES)
 url_extractor_bp = Blueprint('url_extractor_bp', __name__)
 load_dotenv()
 nest_asyncio.apply()
@@ -30,6 +37,7 @@ CHUNK_OVERLAP = os.getenv("CHUNK_OVERLAP")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 
 
+
 if not all([PROJECT_NAME, QDRANT_API_KEY, QDRANT_URL, OPENAI_API_KEY,DATASET,TABLE,COLLECTION_NAME,EMBEDDING_MODEL,QDRANT_PORT,CHUNK_SIZE,CHUNK_OVERLAP]):
     logging.error("One or more environment variables are missing.")
     raise EnvironmentError("One or more environment variables are missing.")
@@ -38,7 +46,7 @@ if not all([PROJECT_NAME, QDRANT_API_KEY, QDRANT_URL, OPENAI_API_KEY,DATASET,TAB
 embedding_client = OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY)
 qdrant_client = QdrantClient(url=QDRANT_URL, port=QDRANT_PORT, api_key=QDRANT_API_KEY)
 vector_store = Qdrant(client=qdrant_client, collection_name=COLLECTION_NAME, embeddings=embedding_client)
-bigquery_client = bigquery.Client()
+bigquery_client = bigquery.Client(credentials=credentials, project=project)
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -172,6 +180,9 @@ def main(request=request):
     vector_store.add_documents(chunks)
     logging.info("Documents added to vector store")
     return jsonify({"message": "Documents added to vector store"}), 200
-        
-        
     
+if __name__ == '__main__':
+    logging.info("Starting URL Extractor...")
+    main()        
+
+        
