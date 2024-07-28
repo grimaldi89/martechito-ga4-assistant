@@ -92,6 +92,12 @@ def main():
     Returns:
         None
     """
+    st.set_page_config(
+        page_title="Martechito-GA4 Assistant",  # Título da página
+        page_icon=":rocket:",  # Você pode usar emojis ou o caminho para um ícone
+        layout="wide",  # "centered" para layout centralizado, "wide" para layout mais amplo
+        initial_sidebar_state="expanded"  # "collapsed", "expanded" ou "auto"
+    )
    
     with st.sidebar:
         st.sidebar.markdown("<h1 style='text-align: center; margin-top: 0;'>Martechito</h1><h2 style='text-align: center; margin-top: 0;'>GA4 AI Assistant</h2>", unsafe_allow_html=True)

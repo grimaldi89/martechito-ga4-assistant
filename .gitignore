@@ -5,3 +5,4 @@ venv/
 *.envcle
 *.env
 howto.txt
+google_credentials.json

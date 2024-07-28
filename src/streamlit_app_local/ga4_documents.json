@@ -1,377 +1,377 @@
 [{
-    "url": "https://support.google.com/analytics/answer/11080067?hl\u003den#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Scopes of traffic-source dimensions"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9756891?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d10753920654039517945-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Default channel group"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10089681?hl\u003den",
-    "tool": "ga4",
-    "subject": "[GA4] Introducing the next generation of Analytics, Google Analytics 4"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9379599?sjid\u003d4845728533053389519-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Upgrade to the next generation of app analytics"
-  }, {
-    "url": "https://support.google.com/analytics/topic/14088998?hl\u003den\u0026ref_topic\u003d14090456\u0026sjid\u003d4845728533053389519-SA",
-    "tool": "ga4",
-    "subject": "Set up Analytics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9304153?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Set up Analytics for a website and/or app"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9744165?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Add a Google Analytics 4 property (to a site that already has Analytics)"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10071811?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Set up cross-domain measurement"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10227574?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Filter, report on, or restrict access to data subsets"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10917952?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] URL builders: Collect campaign data with custom URLs"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9303323?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Google Analytics hierarchy"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9305879?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Create an organization"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10253796?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Switch between accounts and properties"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9679158?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Google Analytics account structure"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9304776?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Edit / delete accounts, properties, and data streams in Google Analytics account"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9305872?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "Move a property"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9305176?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Delete / restore accounts and properties"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9305587?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Access and data-restriction management"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11091422?hl\u003den\u0026ref_topic\u003d12154439,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[UA→GA4] Events in Google Analytics 4 vs Universal Analytics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9322688?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Crealtime-report%2Cdebugview-report",
-    "tool": "ga4",
-    "subject": "[GA4] About events"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9964640?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[UA→GA4] Universal Analytics versus Google Analytics 4 data"
-  }, {
-    "url": "https://support.google.com/analytics/answer/7201382?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Monitor events in DebugView"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10710245?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] About modeled key events"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9267568?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] About key events"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10071811?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Set up cross-domain measurement"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10327750?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Identify unwanted referrals"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10227574?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Filter, report on, or restrict access to data subsets"
-  }, {
-    "url": "https://support.google.com/analytics/answer/7667196?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "Data retention"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9940393?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Data-deletion requests"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10071301?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] About Data Import"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9212670?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Overview of Google Analytics reports"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11198161?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Data freshness"
-  }, {
-    "url": "https://support.google.com/analytics/answer/7579450?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Get started with Explorations"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10976610?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Reporting identity"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9443595?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Analytics Insights"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9379420?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Link Google Ads and Analytics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10607994?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Advertising snapshot report"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10607798?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Get started with advertising"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10596866?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Get started with attribution"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10597962?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Select attribution settings"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10595568?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Attribution paths report"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10596865?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Attribution models report"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10646596?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[UA→GA4] Google Ads links migration tool"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9267572?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Create, edit, and archive audiences"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11184423?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[UA→GA4] Audiences migration guide"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10427338?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Suggested audiences"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9934109?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Audience triggers"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9846734?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Predictive metrics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9805833?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Predictive audiences"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9313634?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Enable remarketing with Google Analytics data"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9445345?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Activate Google signals for Google Analytics 4 properties"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9759219?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Remarketing lists for search ads"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9379420?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Link Google Ads and Analytics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9358801?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] BigQuery Export"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9823238?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Set up BigQuery Export"
-  }, {
-    "url": "https://support.google.com/analytics/answer/7031061?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] BigQuery Export error messages"
-  }, {
-    "url": "https://support.google.com/analytics/answer/7029846?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#event\u0026user\u0026device\u0026geo\u0026app_info\u0026collected_traffic_source\u0026traffic_source\u0026stream\u0026ecommerce\u0026items\u0026zippy\u003d%2Cevent%2Cconsiderations-for-updating-sdks-to-android-or-later-andor-ios-or-later%2Cuse-this-script-to-migrate-existing-bigquery-datasets-from-the-old-export-schema-to-the-new-one%2Cscript-migration-scriptsql%2Cscript-migrationsh",
-    "tool": "ga4",
-    "subject": "[GA4] BigQuery Export schema"
-  }, {
-    "url": "https://support.google.com/analytics/answer/12769371?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] BigQuery Export user-data schema"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9037342?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Sample queries for audiences based on BigQuery data"
-  }, {
-    "url": "https://support.google.com/analytics/answer/13644080?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Ctable-footnotes",
-    "tool": "ga4",
-    "subject": "[GA4] Reporting surfaces comparison"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11085214?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Search Ads 360 integration"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10439659?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Display \u0026 Video 360 integration"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9289234?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Firebase integration"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10737381?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Search Console integration"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11479699?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Google Merchant Center integration"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9691421?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Google Ad Manager integration"
-  }, {
-    "url": "https://support.google.com/analytics/answer/10837459?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Salesforce Marketing Cloud reporting integration"
-  }, {
-    "url": "https://support.google.com/analytics/answer/12159453?hl\u003den\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d2\u0026ref_topic\u003d14089939",
-    "tool": "ga4",
-    "subject": "The value of digital analytics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/12159447?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "How Google Analytics works"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9353532?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Set up data collection for an app"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9333790?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Confirm that you\u0027re collecting data"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9367631?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Find your way around Analytics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11828307?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
-    "tool": "ga4",
-    "subject": "[GA4] Google Analytics 4 account training guide and support"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9191807?hl\u003den",
-    "tool": "ga4",
-    "subject": "[GA4] About Analytics sessions"
-  }, {
-    "url": "https://support.google.com/analytics/answer/13947485?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "Dimensions and metrics introduction"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9268042?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Predefined user dimensions"
-  }, {
-    "url": "https://support.google.com/analytics/answer/12253918?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Understand user metrics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11109416?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] User engagement"
-  }, {
-    "url": "https://support.google.com/analytics/answer/12195621?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Engagement rate and bounce rate"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11242870?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Traffic-source dimensions, manual tagging, and auto-tagging"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11080067?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Scopes of traffic-source dimensions"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11242841?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Campaigns and traffic sources"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9408920?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Differences in user counts"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11397207?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Cookie usage on websites"
-  }, {
-    "url": "https://support.google.com/analytics/answer/11080047?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Entrances and exits"
-  }, {
-    "url": "https://support.google.com/analytics/answer/9796179?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
-    "tool": "ga4",
-    "subject": "[GA4] Currency reference"
-  }, {
-    "url": "https://support.google.com/analytics/answer/14240153?hl\u003den",
-    "tool": "ga4",
-    "subject": "[GA4] About custom dimensions and metrics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/14239618?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-custom-dimension-in-a-report%2Canalyze-the-custom-dimension-in-an-exploration%2Cbuild-an-audience-using-the-dimension",
-    "tool": "ga4",
-    "subject": "[GA4] Create user-scoped custom dimensions"
-  }, {
-    "url": "https://support.google.com/analytics/answer/14239696?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-custom-dimension-in-a-report%2Canalyze-the-custom-dimension-in-an-exploration%2Cbuild-an-audience-using-the-dimension",
-    "tool": "ga4",
-    "subject": "[GA4] Create event-scoped custom dimensions"
-  }, {
-    "url": "https://support.google.com/analytics/answer/14239695?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-custom-dimension-in-a-report%2Canalyze-the-custom-dimension-in-an-exploration%2Cbuild-an-audience-using-the-dimension",
-    "tool": "ga4",
-    "subject": "[GA4] Create item-scoped custom dimensions"
-  }, {
-    "url": "https://support.google.com/analytics/answer/14239619?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-metric-in-a-report%2Canalyze-the-metric-in-an-exploration",
-    "tool": "ga4",
-    "subject": "[GA4] Create custom metrics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/14166471?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Create calculated metrics"
-  }, {
-    "url": "https://support.google.com/analytics/answer/12436143?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
-    "tool": "ga4",
-    "subject": "[GA4] Archive custom dimensions and metrics"
-  }, {
-    "url": "https://support.google.com/analytics/table/13948007?sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d2",
-    "tool": "ga4",
-    "subject": "[GA4] Analytics dimensions and metrics"
-  }]
+  "url": "https://support.google.com/analytics/answer/11080067?hl\u003den#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Scopes of traffic-source dimensions"
+}, {
+  "url": "https://support.google.com/analytics/answer/9756891?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d10753920654039517945-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Default channel group"
+}, {
+  "url": "https://support.google.com/analytics/answer/10089681?hl\u003den",
+  "tool": "ga4",
+  "subject": "[GA4] Introducing the next generation of Analytics, Google Analytics 4"
+}, {
+  "url": "https://support.google.com/analytics/answer/9379599?sjid\u003d4845728533053389519-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Upgrade to the next generation of app analytics"
+}, {
+  "url": "https://support.google.com/analytics/topic/14088998?hl\u003den\u0026ref_topic\u003d14090456\u0026sjid\u003d4845728533053389519-SA",
+  "tool": "ga4",
+  "subject": "Set up Analytics"
+}, {
+  "url": "https://support.google.com/analytics/answer/9304153?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Set up Analytics for a website and/or app"
+}, {
+  "url": "https://support.google.com/analytics/answer/9744165?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Add a Google Analytics 4 property (to a site that already has Analytics)"
+}, {
+  "url": "https://support.google.com/analytics/answer/10071811?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Set up cross-domain measurement"
+}, {
+  "url": "https://support.google.com/analytics/answer/10227574?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Filter, report on, or restrict access to data subsets"
+}, {
+  "url": "https://support.google.com/analytics/answer/10917952?hl\u003den\u0026ref_topic\u003d14088998\u0026sjid\u003d4845728533053389519-SA#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] URL builders: Collect campaign data with custom URLs"
+}, {
+  "url": "https://support.google.com/analytics/answer/9303323?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Google Analytics hierarchy"
+}, {
+  "url": "https://support.google.com/analytics/answer/9305879?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Create an organization"
+}, {
+  "url": "https://support.google.com/analytics/answer/10253796?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Switch between accounts and properties"
+}, {
+  "url": "https://support.google.com/analytics/answer/9679158?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Google Analytics account structure"
+}, {
+  "url": "https://support.google.com/analytics/answer/9304776?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Edit / delete accounts, properties, and data streams in Google Analytics account"
+}, {
+  "url": "https://support.google.com/analytics/answer/9305872?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "Move a property"
+}, {
+  "url": "https://support.google.com/analytics/answer/9305176?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Delete / restore accounts and properties"
+}, {
+  "url": "https://support.google.com/analytics/answer/9305587?hl\u003den\u0026ref_topic\u003d12154331,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Access and data-restriction management"
+}, {
+  "url": "https://support.google.com/analytics/answer/11091422?hl\u003den\u0026ref_topic\u003d12154439,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[UA→GA4] Events in Google Analytics 4 vs Universal Analytics"
+}, {
+  "url": "https://support.google.com/analytics/answer/9322688?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Crealtime-report%2Cdebugview-report",
+  "tool": "ga4",
+  "subject": "[GA4] About events"
+}, {
+  "url": "https://support.google.com/analytics/answer/9964640?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[UA→GA4] Universal Analytics versus Google Analytics 4 data"
+}, {
+  "url": "https://support.google.com/analytics/answer/7201382?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Monitor events in DebugView"
+}, {
+  "url": "https://support.google.com/analytics/answer/10710245?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] About modeled key events"
+}, {
+  "url": "https://support.google.com/analytics/answer/9267568?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] About key events"
+}, {
+  "url": "https://support.google.com/analytics/answer/10071811?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Set up cross-domain measurement"
+}, {
+  "url": "https://support.google.com/analytics/answer/10327750?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Identify unwanted referrals"
+}, {
+  "url": "https://support.google.com/analytics/answer/10227574?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Filter, report on, or restrict access to data subsets"
+}, {
+  "url": "https://support.google.com/analytics/answer/7667196?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "Data retention"
+}, {
+  "url": "https://support.google.com/analytics/answer/9940393?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Data-deletion requests"
+}, {
+  "url": "https://support.google.com/analytics/answer/10071301?hl\u003den\u0026ref_topic\u003d12153646,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] About Data Import"
+}, {
+  "url": "https://support.google.com/analytics/answer/9212670?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Overview of Google Analytics reports"
+}, {
+  "url": "https://support.google.com/analytics/answer/11198161?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Data freshness"
+}, {
+  "url": "https://support.google.com/analytics/answer/7579450?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Get started with Explorations"
+}, {
+  "url": "https://support.google.com/analytics/answer/10976610?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Reporting identity"
+}, {
+  "url": "https://support.google.com/analytics/answer/9443595?hl\u003den\u0026ref_topic\u003d12153537,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Analytics Insights"
+}, {
+  "url": "https://support.google.com/analytics/answer/9379420?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Link Google Ads and Analytics"
+}, {
+  "url": "https://support.google.com/analytics/answer/10607994?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Advertising snapshot report"
+}, {
+  "url": "https://support.google.com/analytics/answer/10607798?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Get started with advertising"
+}, {
+  "url": "https://support.google.com/analytics/answer/10596866?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Get started with attribution"
+}, {
+  "url": "https://support.google.com/analytics/answer/10597962?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Select attribution settings"
+}, {
+  "url": "https://support.google.com/analytics/answer/10595568?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Attribution paths report"
+}, {
+  "url": "https://support.google.com/analytics/answer/10596865?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Attribution models report"
+}, {
+  "url": "https://support.google.com/analytics/answer/10646596?hl\u003den\u0026ref_topic\u003d12153647,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[UA→GA4] Google Ads links migration tool"
+}, {
+  "url": "https://support.google.com/analytics/answer/9267572?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Create, edit, and archive audiences"
+}, {
+  "url": "https://support.google.com/analytics/answer/11184423?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[UA→GA4] Audiences migration guide"
+}, {
+  "url": "https://support.google.com/analytics/answer/10427338?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Suggested audiences"
+}, {
+  "url": "https://support.google.com/analytics/answer/9934109?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Audience triggers"
+}, {
+  "url": "https://support.google.com/analytics/answer/9846734?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Predictive metrics"
+}, {
+  "url": "https://support.google.com/analytics/answer/9805833?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Predictive audiences"
+}, {
+  "url": "https://support.google.com/analytics/answer/9313634?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Enable remarketing with Google Analytics data"
+}, {
+  "url": "https://support.google.com/analytics/answer/9445345?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Activate Google signals for Google Analytics 4 properties"
+}, {
+  "url": "https://support.google.com/analytics/answer/9759219?hl\u003den\u0026ref_topic\u003d12154332,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Remarketing lists for search ads"
+}, {
+  "url": "https://support.google.com/analytics/answer/9379420?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Link Google Ads and Analytics"
+}, {
+  "url": "https://support.google.com/analytics/answer/9358801?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] BigQuery Export"
+}, {
+  "url": "https://support.google.com/analytics/answer/9823238?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Set up BigQuery Export"
+}, {
+  "url": "https://support.google.com/analytics/answer/7031061?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] BigQuery Export error messages"
+}, {
+  "url": "https://support.google.com/analytics/answer/7029846?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#event\u0026user\u0026device\u0026geo\u0026app_info\u0026collected_traffic_source\u0026traffic_source\u0026stream\u0026ecommerce\u0026items\u0026zippy\u003d%2Cevent%2Cconsiderations-for-updating-sdks-to-android-or-later-andor-ios-or-later%2Cuse-this-script-to-migrate-existing-bigquery-datasets-from-the-old-export-schema-to-the-new-one%2Cscript-migration-scriptsql%2Cscript-migrationsh",
+  "tool": "ga4",
+  "subject": "[GA4] BigQuery Export schema"
+}, {
+  "url": "https://support.google.com/analytics/answer/12769371?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] BigQuery Export user-data schema"
+}, {
+  "url": "https://support.google.com/analytics/answer/9037342?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Sample queries for audiences based on BigQuery data"
+}, {
+  "url": "https://support.google.com/analytics/answer/13644080?hl\u003den\u0026ref_topic\u003d9359001\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Ctable-footnotes",
+  "tool": "ga4",
+  "subject": "[GA4] Reporting surfaces comparison"
+}, {
+  "url": "https://support.google.com/analytics/answer/11085214?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Search Ads 360 integration"
+}, {
+  "url": "https://support.google.com/analytics/answer/10439659?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Display \u0026 Video 360 integration"
+}, {
+  "url": "https://support.google.com/analytics/answer/9289234?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Firebase integration"
+}, {
+  "url": "https://support.google.com/analytics/answer/10737381?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Search Console integration"
+}, {
+  "url": "https://support.google.com/analytics/answer/11479699?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Google Merchant Center integration"
+}, {
+  "url": "https://support.google.com/analytics/answer/9691421?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Google Ad Manager integration"
+}, {
+  "url": "https://support.google.com/analytics/answer/10837459?hl\u003den\u0026ref_topic\u003d12154236,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Salesforce Marketing Cloud reporting integration"
+}, {
+  "url": "https://support.google.com/analytics/answer/12159453?hl\u003den\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d2\u0026ref_topic\u003d14089939",
+  "tool": "ga4",
+  "subject": "The value of digital analytics"
+}, {
+  "url": "https://support.google.com/analytics/answer/12159447?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "How Google Analytics works"
+}, {
+  "url": "https://support.google.com/analytics/answer/9353532?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Set up data collection for an app"
+}, {
+  "url": "https://support.google.com/analytics/answer/9333790?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Confirm that you\u0027re collecting data"
+}, {
+  "url": "https://support.google.com/analytics/answer/9367631?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Find your way around Analytics"
+}, {
+  "url": "https://support.google.com/analytics/answer/11828307?hl\u003den\u0026ref_topic\u003d12156336,12153943,2986333,\u0026sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d1",
+  "tool": "ga4",
+  "subject": "[GA4] Google Analytics 4 account training guide and support"
+}, {
+  "url": "https://support.google.com/analytics/answer/9191807?hl\u003den",
+  "tool": "ga4",
+  "subject": "[GA4] About Analytics sessions"
+}, {
+  "url": "https://support.google.com/analytics/answer/13947485?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "Dimensions and metrics introduction"
+}, {
+  "url": "https://support.google.com/analytics/answer/9268042?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Predefined user dimensions"
+}, {
+  "url": "https://support.google.com/analytics/answer/12253918?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Understand user metrics"
+}, {
+  "url": "https://support.google.com/analytics/answer/11109416?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] User engagement"
+}, {
+  "url": "https://support.google.com/analytics/answer/12195621?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Engagement rate and bounce rate"
+}, {
+  "url": "https://support.google.com/analytics/answer/11242870?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Traffic-source dimensions, manual tagging, and auto-tagging"
+}, {
+  "url": "https://support.google.com/analytics/answer/11080067?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Scopes of traffic-source dimensions"
+}, {
+  "url": "https://support.google.com/analytics/answer/11242841?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Campaigns and traffic sources"
+}, {
+  "url": "https://support.google.com/analytics/answer/9408920?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Differences in user counts"
+}, {
+  "url": "https://support.google.com/analytics/answer/11397207?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Cookie usage on websites"
+}, {
+  "url": "https://support.google.com/analytics/answer/11080047?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Entrances and exits"
+}, {
+  "url": "https://support.google.com/analytics/answer/9796179?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Cin-this-article",
+  "tool": "ga4",
+  "subject": "[GA4] Currency reference"
+}, {
+  "url": "https://support.google.com/analytics/answer/14240153?hl\u003den",
+  "tool": "ga4",
+  "subject": "[GA4] About custom dimensions and metrics"
+}, {
+  "url": "https://support.google.com/analytics/answer/14239618?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-custom-dimension-in-a-report%2Canalyze-the-custom-dimension-in-an-exploration%2Cbuild-an-audience-using-the-dimension",
+  "tool": "ga4",
+  "subject": "[GA4] Create user-scoped custom dimensions"
+}, {
+  "url": "https://support.google.com/analytics/answer/14239696?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-custom-dimension-in-a-report%2Canalyze-the-custom-dimension-in-an-exploration%2Cbuild-an-audience-using-the-dimension",
+  "tool": "ga4",
+  "subject": "[GA4] Create event-scoped custom dimensions"
+}, {
+  "url": "https://support.google.com/analytics/answer/14239695?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-custom-dimension-in-a-report%2Canalyze-the-custom-dimension-in-an-exploration%2Cbuild-an-audience-using-the-dimension",
+  "tool": "ga4",
+  "subject": "[GA4] Create item-scoped custom dimensions"
+}, {
+  "url": "https://support.google.com/analytics/answer/14239619?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA#zippy\u003d%2Canalyze-the-metric-in-a-report%2Canalyze-the-metric-in-an-exploration",
+  "tool": "ga4",
+  "subject": "[GA4] Create custom metrics"
+}, {
+  "url": "https://support.google.com/analytics/answer/14166471?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Create calculated metrics"
+}, {
+  "url": "https://support.google.com/analytics/answer/12436143?hl\u003den\u0026ref_topic\u003d11151952\u0026sjid\u003d13225808971503393568-SA",
+  "tool": "ga4",
+  "subject": "[GA4] Archive custom dimensions and metrics"
+}, {
+  "url": "https://support.google.com/analytics/table/13948007?sjid\u003d13225808971503393568-SA\u0026visit_id\u003d638569084024419745-3958427487\u0026rd\u003d2",
+  "tool": "ga4",
+  "subject": "[GA4] Analytics dimensions and metrics"
+}]

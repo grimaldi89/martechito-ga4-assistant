@@ -10,6 +10,7 @@ import os
 import streamlit as st
 from dotenv import load_dotenv
 import logging
+from streamlit_google_auth import Authenticate
 
 set_verbose(True)
 logging.basicConfig(level=logging.INFO)
@@ -92,66 +93,98 @@ def main():
     Returns:
         None
     """
-   
-    with st.sidebar:
-        st.sidebar.markdown("<h1 style='text-align: center; margin-top: 0;'>Martechito</h1><h2 style='text-align: center; margin-top: 0;'>GA4 AI Assistant</h2>", unsafe_allow_html=True)
-        st.sidebar.markdown("---")
-        st.sidebar.markdown("""
-            ### About
-    This chatbot is a personal project created to answer questions about GA4, offering a conversational interface to its official documentation and public knowledge base.
+    st.set_page_config(page_title="Martechito - AI Assistant", page_icon="robot.png", layout="centered", initial_sidebar_state="expanded", menu_items=None)
+    logging.info(st.session_state)
+    
+    authenticator = Authenticate(
+        secret_credentials_path='google_credentials.json',
+        cookie_name='google_auth_cookie',
+        cookie_key='secret',
+        redirect_uri='http://localhost:8501',
+    )
+    
+    authenticator.check_authentification()
+    
+    
+# Display the login button if the user is not authenticated
+    if not st.session_state.get('connected', False):
+        authorization_url = authenticator.get_authorization_url()
+        #st.markdown(f'[Login]({authorization_url})')
+        st.link_button('Login', authorization_url)
+    # Display the user information and logout button if the user is authenticated
+    else:
+        
+        
+        #st.image(st.session_state['user_info'].get('picture'))
+        #st.write(f"Hello, {st.session_state['user_info'].get('name')}")
+        #st.write(f"Your email is {st.session_state['user_info'].get('email')}")
+        #if st.button('Log out'):
+        #    authenticator.logout()
+            
+            
+            
+        with st.sidebar:
+            if st.button('Log out'):
+                authenticator.logout()
+            st.sidebar.markdown("<h1 style='text-align: center; margin-top: 0;'>Martechito</h1><h2 style='text-align: center; margin-top: 0;'>GA4 AI Assistant</h2>", unsafe_allow_html=True)
+            st.sidebar.markdown("---")
+            st.sidebar.markdown("""
+                ### About
+        This chatbot is a personal project created to answer questions about GA4, offering a conversational interface to its official documentation and public knowledge base.
 
-    It leverages a Retrieval-Augmented Generation (RAG) model that integrates OpenAI's GPT-4 with a Qdrant vector store to provide relevant responses to user inquiries.
+        It leverages a Retrieval-Augmented Generation (RAG) model that integrates OpenAI's GPT-4 with a Qdrant vector store to provide relevant responses to user inquiries.
 
-    Feedback and contributions are welcome! Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/rodolfo-grimaldi/) or [GitHub](https://github.com/grimaldi89/martechito-ga4-assistant).
-            """)
-        st.sidebar.markdown("""
-            ### Interactions
-    The chatbot is designed to provide information about GA4, the latest version of Google Analytics. It can answer questions about GA4's features, implementation and best practices.
+        Feedback and contributions are welcome! Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/rodolfo-grimaldi/) or [GitHub](https://github.com/grimaldi89/martechito-ga4-assistant).
+                """)
+            st.sidebar.markdown("""
+                ### Interactions
+        The chatbot is designed to provide information about GA4, the latest version of Google Analytics. It can answer questions about GA4's features, implementation and best practices.
 
-    Ps: The chatbot is still in development, so it may not have all the answers you're looking for or may provide incorrect information. Please use it at your own discretion.
-            """)
-        # Adicionando imagens com links para LinkedIn e GitHub
-        linkedin_url = "https://www.linkedin.com/in/rodolfo-grimaldi/"
-        github_url = "https://github.com/grimaldi89/martechito-ga4-assistant"
-        linkedin_image = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
-        github_image = "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+        Ps: The chatbot is still in development, so it may not have all the answers you're looking for or may provide incorrect information. Please use it at your own discretion.
+                """)
+            # Adicionando imagens com links para LinkedIn e GitHub
+            linkedin_url = "https://www.linkedin.com/in/rodolfo-grimaldi/"
+            github_url = "https://github.com/grimaldi89/martechito-ga4-assistant"
+            linkedin_image = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+            github_image = "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
 
-        st.markdown(f"<a href='{linkedin_url}'><img src='{linkedin_image}' style='height:50px; margin-right: 10px;'></a>"
-                    f"<a href='{github_url}'><img src='{github_image}' style='height:50px;'></a>", unsafe_allow_html=True)
-    with st.chat_message("assistant"):
-        st.markdown("My name is Martechito, GA4 AI assistant, how can I help you today?")
-    # Initialize chat history
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-    if "conversation" not in st.session_state:
-        st.session_state.conversation = []
-
-    # Display chat messages from history on app rerun
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-    # React to user input
-    if prompt := st.chat_input("Type your message here..."):
-        # Display user message in chat message container
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        # Add user message to chat history
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.session_state.conversation.append({"role": "user", "content": prompt})
-
-        # Invoke QA model
-        last_four_interactions = st.session_state.conversation[-4:]
-        response = rag_chain.invoke({"input": prompt, "chat_history": last_four_interactions})
-        logging.info(response)
-
-        # Display assistant response in chat message container
+            st.markdown(f"<a href='{linkedin_url}'><img src='{linkedin_image}' style='height:50px; margin-right: 10px;'></a>"
+                        f"<a href='{github_url}'><img src='{github_image}' style='height:50px;'></a>", unsafe_allow_html=True)
         with st.chat_message("assistant"):
-            st.markdown(response["answer"])
-            st.session_state.conversation.extend([HumanMessage(content=prompt), response["answer"]])
+            st.markdown("My name is Martechito, GA4 AI assistant, how can I help you today?")
+        # Initialize chat history
+        if "messages" not in st.session_state:
+            st.session_state.messages = []
+        if "conversation" not in st.session_state:
+            st.session_state.conversation = []
 
-        # Add assistant response to chat history
-        st.session_state.messages.append({"role": "assistant", "content": response["answer"]})
+        # Display chat messages from history on app rerun
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+
+        # React to user input
+        if prompt := st.chat_input("Type your message here..."):
+            # Display user message in chat message container
+            with st.chat_message("user"):
+                st.markdown(prompt)
+            # Add user message to chat history
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.session_state.conversation.append({"role": "user", "content": prompt})
+
+            # Invoke QA model
+            last_four_interactions = st.session_state.conversation[-4:]
+            response = rag_chain.invoke({"input": prompt, "chat_history": last_four_interactions})
+            logging.info(response)
+
+            # Display assistant response in chat message container
+            with st.chat_message("assistant"):
+                st.markdown(response["answer"])
+                logging.info(st.session_state)
+                st.session_state.conversation.extend([HumanMessage(content=prompt), response["answer"]])
+
+            # Add assistant response to chat history
+            st.session_state.messages.append({"role": "assistant", "content": response["answer"]})
 
 
 if __name__ == "__main__":
