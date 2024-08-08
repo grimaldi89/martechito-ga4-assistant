@@ -10,6 +10,7 @@ import logging
 import datetime
 import os
 import json
+import time
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -43,7 +44,7 @@ CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP"))
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 
 embedding_client = OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY)
-qdrant_client = QdrantClient(url=QDRANT_URL, port=QDRANT_PORT, api_key=QDRANT_API_KEY)
+qdrant_client = QdrantClient(url=QDRANT_URL, port=QDRANT_PORT, api_key=QDRANT_API_KEY,timeout=10000)
 vector_store = Qdrant(client=qdrant_client, collection_name=COLLECTION_NAME, embeddings=embedding_client)
 
 def extract_urls(list_name: str):
@@ -54,7 +55,7 @@ def extract_urls(list_name: str):
 class CustomWebBaseLoader(WebBaseLoader):
    
     def __init__(self, urls_with_metadata):
-        super().__init__([item['url'] for item in urls_with_metadata])
+        super().__init__([item['url'] for item in urls_with_metadata],requests_per_second=5)
         self.urls_with_metadata = urls_with_metadata
 
     def load(self):
@@ -100,6 +101,7 @@ def main():
         collection_exists = qdrant_client.collection_exists(COLLECTION_NAME)
         if not collection_exists:
             create_collection()
+        
         vector_store.add_documents(chunks)
         logging.info("Documents added to vector store")
     except Exception as e:

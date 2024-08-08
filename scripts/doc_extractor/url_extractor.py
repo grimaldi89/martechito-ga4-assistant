@@ -64,9 +64,9 @@ def extract_urls(project_name,dataset, table):
     """
     
     logging.info("Extracting Bigquery URL's...")
-    query = f"SELECT url, tool, subject FROM `{project_name}.{dataset}.{table}`"
+    query = f"SELECT * FROM `{project_name}.{dataset}.{table}`"
     query_job = bigquery_client.query(query)
-    return [{"url": row.url, "subject": row.subject, "tool": row.tool} for row in query_job]
+    return [{"url": row.url, "subject": row.subject, "tool": row.tool, "type": row.type, "category": row.category} for row in query_job]
     
         
 
@@ -102,6 +102,9 @@ class CustomWebBaseLoader(WebBaseLoader):
             doc.metadata['subject'] = metadata['subject']
             doc.metadata['tool'] = metadata['tool']
             doc.metadata["date"] = datetime.date.today().isoformat()
+            doc.metadata["type"] = metadata["type"]
+            doc.metadata["category"] = metadata["category"]
+            
         return documents
 
 @error_wrapper
