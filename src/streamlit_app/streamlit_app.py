@@ -2,7 +2,6 @@ import os
 import streamlit as st
 import logging
 from dotenv import load_dotenv
-from streamlit_option_menu import option_menu
 from qdrant_client import QdrantClient
 from langchain_qdrant import Qdrant
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
