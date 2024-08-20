@@ -15,13 +15,13 @@ GTM_SCRIPT_HEAD = f"""
 <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
 new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.tagging.martechito.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-}})(window,document,'script','dataLayer','GTM-K228GN4F');</script>
+'/metrics/?id='+i+dl;f.parentNode.insertBefore(j,f);
+}})(window,document,'script','dataLayer','{GTM_CONTAINER_ID}');</script>
 <!-- End Google Tag Manager -->
 """
 GTM_SCRIPT_BODY = f"""
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.tagging.martechito.com/ns.html?id=GTM-K228GN4F"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM_CONTAINER_ID}"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 """
