@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import streamlit.components.v1 as components
 import logging
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
@@ -166,6 +167,7 @@ def main():
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.session_state.conversation.append({"role": "user", "content": prompt})
+        components.html(f"<script>parent.window.dataLayer = parent.window.dataLayer || []; parent.window.dataLayer.push({{'event':'send_question','prompt':'{prompt}'}});</script>")
 
         # Invocar o modelo QA
         last_four_interactions = st.session_state.conversation[-4:]
