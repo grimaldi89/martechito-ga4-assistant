@@ -95,7 +95,8 @@ def main():
     rag_chain = chain(retriever=retriever, llm=llm, contextualize_q_system_prompt=contextualize_q_system_prompt)
     st.set_page_config(page_title="Martechito - GA4 AI Assistant", page_icon="robot.png", layout="centered", initial_sidebar_state="expanded", menu_items=None)
     logging.info(st.session_state)
-
+    ## Datalayer function to send questions to Google Tag Manager
+    ##st.session_state.dataLayerPush = lambda prompt: components.html(f"<script>parent.window.dataLayer = parent.window.dataLayer || []; parent.window.dataLayer.push({{'event':'send_question','prompt':'{prompt}'}});</script>")
 
     # Inicialize o estado para o "Custom Search"
     if "show_custom_search" not in st.session_state:
@@ -167,8 +168,8 @@ def main():
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.session_state.conversation.append({"role": "user", "content": prompt})
-        components.html(f"<script>parent.window.dataLayer = parent.window.dataLayer || []; parent.window.dataLayer.push({{'event':'send_question','prompt':'{prompt}'}});</script>")
-
+        ##components.html(f"<script>parent.window.dataLayer = parent.window.dataLayer || []; parent.window.dataLayer.push({{'event':'send_question','prompt':'{prompt}'}});</script>")
+        ##st.session_state.dataLayerPush(prompt)
         # Invocar o modelo QA
         last_four_interactions = st.session_state.conversation[-4:]
         response = rag_chain.invoke({"input": prompt, "chat_history": last_four_interactions})
