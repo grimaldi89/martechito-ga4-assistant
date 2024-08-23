@@ -17,7 +17,7 @@ def setup_logging():
 def setup_page():
     st.set_page_config(
         page_title="Martechito - GA4 AI Assistant",
-        page_icon="img/robot.png",
+        page_icon="src/img/robot.png",
         layout="centered",
         initial_sidebar_state="expanded",
         menu_items=None
@@ -79,7 +79,7 @@ def main():
             # Atualize o rag_chain com o novo retriever
             rag_chain = chain(retriever=retriever, llm=llm, contextualize_q_system_prompt=CONTEXTUALIZE_Q_SYSTEM_PROMPT)
             
-        st.image("img/martechito-removebg-preview.png", use_column_width=True)
+        st.image("src/img/martechito-removebg-preview.png", use_column_width=True)
         st.sidebar.markdown("<h2 style='text-align: center; margin-top: 0;'>GA4 AI Assistant</h2>", unsafe_allow_html=True)
         st.sidebar.markdown("---")
         st.sidebar.markdown(f"""
