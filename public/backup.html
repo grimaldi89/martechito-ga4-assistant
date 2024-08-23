@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Martechito - AI Assistant</title>
+  <link rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
+  <style>
+    /* Remover margens e preenchimentos do corpo e do HTML */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Centralizar o contêiner do FirebaseUI */
+    #firebaseui-auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8); /* Fundo branco semi-transparente */
+      z-index: 2; /* Colocar acima do iframe */
+    }
+
+    /* Centralizar o botão de login */
+    .firebaseui-card-content {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Definir 100% da tela e aplicar desfoque */
+    #protected-content {
+      border: none; /* Remover a borda do iframe */
+      width: 100%;
+      height: 100%;
+      filter: blur(2px); /* Aplicar desfoque */
+      pointer-events: none; /* Desabilitar interação */
+    }
+
+    /* Estilo para o botão de sign out */
+    #sign-out-button {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 3; /* Colocar acima do iframe */
+    }
+  </style>
+</head>
+<body>
+  <div id="firebaseui-auth-container"></div>
+  <iframe id="protected-content" src="https://martechito.com"></iframe>
+  <button id="sign-out-button">Sign Out</button>
+  <div id="loader">Loading...</div> <!-- Adicione este elemento -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+  <script>
+    // Configuração do Firebase
+    var firebaseConfig = {
+      apiKey: "AIzaSyBh78zO92RNQ3Ulf1jE8l5bJh_vUDVKMwI",
+      authDomain: "martechito.firebaseapp.com",
+      projectId: "martechito",
+      storageBucket: "martechito.appspot.com",
+      messagingSenderId: "800412768704",
+      appId: "1:800412768704:web:d587f0422489883b8ad025",
+      measurementId: "G-TLK4NZ7PX8"
+    };
+
+    // Inicializar o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Inicializar o FirebaseUI
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+    var uiConfig = {
+      callbacks: {
+        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+          // User successfully signed in.
+          var user = authResult.user;
+          if (user) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: 'login',
+              method: 'Google',
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName,
+              photoURL: user.photoURL
+            });
+            localStorage.setItem('userEmail', user.email);
+            localStorage.setItem('userDisplayName', user.displayName);
+            localStorage.setItem('userPhotoURL', user.photoURL);
+            localStorage.setItem('userUID', user.uid);
+             // Obter o token de ID do usuário
+             
+          }
+          document.getElementById('firebaseui-auth-container').style.display = 'none';
+          document.getElementById('protected-content').style.filter = 'none';
+          document.getElementById('protected-content').style.pointerEvents = 'auto';
+          document.getElementById('sign-out-button').style.display = 'block';
+          //window.location.href = 'http://app.martechito.com';
+          return false; // Evitar redirecionamento
+        },
+        uiShown: function() {
+          // Hide the loader.
+          document.getElementById('loader').style.display = 'none';
+        }
+      },
+      signInFlow: 'popup',
+      //signInSuccessUrl: 'http://app.martechito.com', // Adicione o URL de redirecionamento aqui
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        //firebase.auth.GithubAuthProvider.PROVIDER_ID
+      ],
+      tosUrl: '<your-tos-url>',
+      privacyPolicyUrl: '<your-privacy-policy-url>'
+    };
+
+    // Verificar o estado de autenticação
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // Usuário está logado
+        localStorage.setItem('userEmail', user.email);
+        localStorage.setItem('userDisplayName', user.displayName);
+        localStorage.setItem('userPhotoURL', user.photoURL);
+        localStorage.setItem('userUID', user.uid);
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          method: 'Google',
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,  
+          photoURL: user.photoURL
+        });
+
+        document.getElementById('firebaseui-auth-container').style.display = 'none';
+        document.getElementById('protected-content').style.filter = 'none';
+        document.getElementById('protected-content').style.pointerEvents = 'auto';
+        document.getElementById('sign-out-button').style.display = 'block';
+      } else {
+        // Usuário não está logado
+        ui.start('#firebaseui-auth-container', uiConfig);
+        document.getElementById('protected-content').style.filter = 'blur(2px)';
+        document.getElementById('protected-content').style.pointerEvents = 'none';
+        document.getElementById('sign-out-button').style.display = 'none';
+      }
+    });
+
+    // Adicionar evento de clique ao botão de sign out
+    document.getElementById('sign-out-button').addEventListener('click', function() {
+      firebase.auth().signOut().then(function() {
+        // Sign-out bem-sucedido
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userDisplayName');
+        localStorage.removeItem('userPhotoURL');
+        localStorage.removeItem('userUID');
+        document.getElementById('firebaseui-auth-container').style.display = 'flex';
+        document.getElementById('protected-content').style.filter = 'blur(2px)';
+        document.getElementById('protected-content').style.pointerEvents = 'none';
+        document.getElementById('sign-out-button').style.display = 'none';
+      }).catch(function(error) {
+        // Ocorreu um erro
+        console.error('Erro ao deslogar:', error);
+      });
+    });
+  </script>
+</body>
+</html>
