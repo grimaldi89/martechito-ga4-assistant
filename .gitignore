@@ -6,3 +6,4 @@ venv/
 *.env
 howto.txt
 google_credentials.json
+node_modules

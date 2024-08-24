@@ -20,4 +20,4 @@ RUN chmod +x /app/start.sh
 ENTRYPOINT ["/app/start.sh"]
 
 # You need to define the environment variables QDRANT_URL, QDRANT_API_KEY and OPENAI_API_KEY.
-# After that, you can build the image and run the container with the following commands:
+# After that, you can build the image and run the  container with the following commands:
