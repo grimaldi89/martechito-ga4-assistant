@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WDQCFJFC');</script>
+  <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Martechito - AI Assistant</title>
@@ -58,8 +65,12 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDQCFJFC"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <div id="firebaseui-auth-container"></div>
-  <iframe id="protected-content" class="streamlit-iframe" src="https://martechito.com"></iframe>
+  <iframe id="protected-content" class="streamlit-iframe" src="https://app-iframe.martechito.com"></iframe>
   <button id="sign-out-button">Sign Out</button>
   <div id="loader">Loading...</div> <!-- Adicione este elemento -->
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -68,7 +79,6 @@
   <script>
 
 // Listener para capturar mensagens
-//window.user = window.user || {};
 window.addEventListener('message', (event) => {
     //console.log('Mensagem recebida:', event.data);
 
@@ -81,8 +91,15 @@ window.addEventListener('message', (event) => {
                 "uid": window.user.uid
             }
         };
-        //window.console.log(enrichedData);
-
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'prompt',
+            event_type:"ga4",
+            prompt_data: event.data.prompt_data,
+            user_info: {
+                uid: window.user.uid
+            }
+        });
         // Enviar dados enriquecidos para o endpoint
         fetch('https://prompt-receptor.martechito.com', {
             method: 'POST',
@@ -116,7 +133,7 @@ window.addEventListener('message', (event) => {
       storageBucket: "martechito.appspot.com",
       messagingSenderId: "800412768704",
       appId: "1:800412768704:web:d587f0422489883b8ad025",
-      measurementId: "G-TLK4NZ7PX8"
+      //measurementId: "G-TLK4NZ7PX8"
     };
 
  // Função para enviar informações de login para o iframe
@@ -145,11 +162,11 @@ window.addEventListener('message', (event) => {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
               event: 'login',
+              event_type:"ga4",
               method: 'Google',
-              uid: user.uid,
-              email: user.email,
-              displayName: user.displayName,
-              photoURL: user.photoURL
+              user_info: {
+                uid: window.user.uid
+            }
             });
             localStorage.setItem('userEmail', user.email);
             localStorage.setItem('userDisplayName', user.displayName);
@@ -197,8 +214,7 @@ window.addEventListener('message', (event) => {
           method: 'Google',
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,  
-          photoURL: user.photoURL
+          displayName: user.displayName
         });
 
         document.getElementById('firebaseui-auth-container').style.display = 'none';
@@ -218,6 +234,15 @@ window.addEventListener('message', (event) => {
     document.getElementById('sign-out-button').addEventListener('click', function() {
       firebase.auth().signOut().then(function() {
         // Sign-out bem-sucedido
+        window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: 'sign_out',
+              method: 'Google',
+              event_type:"ga4",
+              user_info: {
+                uid: window.user.uid
+            }
+            });
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userDisplayName');
         localStorage.removeItem('userPhotoURL');
