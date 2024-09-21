@@ -80,7 +80,7 @@ def main():
             rag_chain = chain(retriever=retriever, llm=llm, contextualize_q_system_prompt=CONTEXTUALIZE_Q_SYSTEM_PROMPT)
             
         st.image("src/img/martechito-logo.png", use_column_width=True)
-        language = st.sidebar.selectbox("Select Language", ["Português","English"])
+        language = st.sidebar.selectbox("Select Language", ["English","Português"])
         # Conteúdo em inglês
         about_text_en = f"""
         ### About Martechito
