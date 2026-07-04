@@ -6,5 +6,6 @@ venv/
 *.env
 howto.txt
 google_credentials.json
+client_secret*.json
 node_modules
 .firebase/

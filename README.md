@@ -18,6 +18,8 @@ Conversation memory is kept per chat session via a LangGraph checkpointer, so fo
 
 If the deployer sets an `OPENAI_API_KEY`, each visitor gets a free trial covered by that key, capped at `SESSION_TOKEN_LIMIT` tokens (input + output) per browser session — after that, they must paste their own OpenAI API key into the sidebar to keep chatting, at their own cost. If `OPENAI_API_KEY` is left unset, every visitor has to bring their own key from the first message. A visitor's own key is kept only in their browser session — never written to disk or sent anywhere besides OpenAI.
 
+Access to the app itself requires signing in with a Google account first (via [streamlit-google-auth](https://pypi.org/project/streamlit-google-auth/)) — nobody can reach the chat, free tier or not, without logging in.
+
 ## Setup Instructions
 
 To get Martechito running on your local machine, follow these steps:
@@ -27,8 +29,21 @@ To get Martechito running on your local machine, follow these steps:
 Before installation, you must:
 
 - **Create an OpenAI API Key:** Instructions [here](https://platform.openai.com/api-keys). You'll paste this into the app's sidebar when it's running (see below) — the account needs access to a model that supports the Responses API `web_search` tool (e.g. `gpt-5.5`, `gpt-4.1`); plain `gpt-4o` does not support it.
+- **Create a Google OAuth Client ID** (see "Google Sign-In" below) — required for anyone to be able to log in at all.
 - **Install Python 3.10 or higher:** Instructions [here](https://www.python.org/downloads/).
 - **Install Pip package manager:** Instructions [here](https://pip.pypa.io/en/stable/installation/).
+
+### Google Sign-In
+
+Martechito requires visitors to sign in with Google before they can chat. To set this up:
+
+1. Go to the [Google Cloud Console credentials page](https://console.cloud.google.com/apis/credentials) for the project you want to use (can be the same project as your Firebase project).
+2. If prompted, configure the **OAuth consent screen** first (External user type; add the `openid`, `.../auth/userinfo.email` and `.../auth/userinfo.profile` scopes).
+3. Click **Create Credentials → OAuth client ID**, application type **Web application**.
+4. Under **Authorized redirect URIs**, add every URL the app will be served from — at minimum `http://localhost:8501` for local testing, plus your production URL once deployed. This must match `GOOGLE_OAUTH_REDIRECT_URI` in your `.env` exactly.
+5. Download the resulting JSON file, save it as `client_secret.json` inside `src/streamlit_app/` (next to `.env`) — **never commit this file** (it's already covered by `.gitignore`).
+6. Generate a random secret for signing the login cookie: `python3 -c "import secrets; print(secrets.token_hex(32))"`.
+7. Set `GOOGLE_OAUTH_CLIENT_SECRETS_PATH`, `GOOGLE_OAUTH_REDIRECT_URI`, and `GOOGLE_OAUTH_COOKIE_KEY` in your `.env` accordingly (see `.env.example`).
 
 ### Installation
 
@@ -82,7 +97,7 @@ Before installation, you must:
 
 ## Using Martechito
 
-Once Martechito is up and running, paste your OpenAI API key into the sidebar field, then interact with it by typing your GA4-related queries into the chat interface and pressing send. Martechito will then provide insights, code snippets, or guidance based on your questions, along with links to the official documentation it grounded its answer in.
+Once Martechito is up and running, sign in with your Google account, paste your OpenAI API key into the sidebar field if the free tier is exhausted (or unavailable), then interact with it by typing your GA4-related queries into the chat interface and pressing send. Martechito will then provide insights, code snippets, or guidance based on your questions, along with links to the official documentation it grounded its answer in.
 
 Check the sidebar for additional features and information that might enhance your experience with Martechito.
 

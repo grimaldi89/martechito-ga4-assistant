@@ -10,11 +10,24 @@ MODEL = os.getenv("MODEL")
 # Once a session crosses SESSION_TOKEN_LIMIT, visitors must supply their own key.
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 SESSION_TOKEN_LIMIT = int(os.getenv("SESSION_TOKEN_LIMIT", "20000"))
+
+# Google sign-in (required to use the app at all - see streamlit_google_auth)
+GOOGLE_OAUTH_CLIENT_SECRETS_PATH = os.getenv("GOOGLE_OAUTH_CLIENT_SECRETS_PATH")
+GOOGLE_OAUTH_REDIRECT_URI = os.getenv("GOOGLE_OAUTH_REDIRECT_URI")
+GOOGLE_OAUTH_COOKIE_KEY = os.getenv("GOOGLE_OAUTH_COOKIE_KEY")
+
 LINKEDIN_URL = "https://www.linkedin.com/in/rodolfo-grimaldi/"
 GITHUB_URL = "https://github.com/grimaldi89/martechito-ga4-assistant"
 LINKEDIN_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
 GITHUB_IMAGE = "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
 
-if not MODEL:
-    logging.error("MODEL environment variable is missing.")
-    raise EnvironmentError("MODEL environment variable is missing.")
+REQUIRED_VARS = {
+    "MODEL": MODEL,
+    "GOOGLE_OAUTH_CLIENT_SECRETS_PATH": GOOGLE_OAUTH_CLIENT_SECRETS_PATH,
+    "GOOGLE_OAUTH_REDIRECT_URI": GOOGLE_OAUTH_REDIRECT_URI,
+    "GOOGLE_OAUTH_COOKIE_KEY": GOOGLE_OAUTH_COOKIE_KEY,
+}
+missing_vars = [name for name, value in REQUIRED_VARS.items() if not value]
+if missing_vars:
+    logging.error(f"Missing environment variables: {', '.join(missing_vars)}")
+    raise EnvironmentError(f"Missing environment variables: {', '.join(missing_vars)}")
