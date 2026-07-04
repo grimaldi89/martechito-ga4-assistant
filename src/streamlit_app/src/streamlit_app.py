@@ -6,7 +6,7 @@ import uuid
 import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
 from agent import build_graph, estimate_cost
-from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE
+from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE, OPENAI_API_KEY, SESSION_TOKEN_LIMIT
 
 # Configurações iniciais
 def setup_logging():
@@ -78,20 +78,27 @@ def main():
 
     # Barra lateral
     with st.sidebar:
-        api_key = st.text_input(
+        user_api_key = st.text_input(
             "OpenAI API Key",
             type="password",
-            help="Your key is only kept in this browser session and is never stored."
+            help="Only needed after the free session limit is reached. Your key is kept in this browser session only and is never stored."
         )
         usage = st.session_state.usage
-        cost = estimate_cost(usage["input_tokens"], usage["output_tokens"], usage["search_calls"])
-        if cost is not None:
-            st.caption(f"Estimated session cost: ${cost:.4f}")
-        elif usage["input_tokens"] or usage["output_tokens"]:
-            st.caption(
-                f"Session usage: {usage['input_tokens']} in / {usage['output_tokens']} out tokens, "
-                f"{usage['search_calls']} searches (no pricing data for this model)"
-            )
+        total_tokens = usage["input_tokens"] + usage["output_tokens"]
+        free_tier_available = bool(OPENAI_API_KEY) and total_tokens < SESSION_TOKEN_LIMIT
+        active_api_key = user_api_key or (OPENAI_API_KEY if free_tier_available else None)
+
+        if user_api_key:
+            cost = estimate_cost(usage["input_tokens"], usage["output_tokens"], usage["search_calls"])
+            if cost is not None:
+                st.caption(f"Estimated session cost: ${cost:.4f}")
+            elif usage["input_tokens"] or usage["output_tokens"]:
+                st.caption(
+                    f"Session usage: {usage['input_tokens']} in / {usage['output_tokens']} out tokens, "
+                    f"{usage['search_calls']} searches (no pricing data for this model)"
+                )
+        elif OPENAI_API_KEY:
+            st.caption(f"Free tier: {total_tokens}/{SESSION_TOKEN_LIMIT} tokens used this session")
         st.markdown("---")
         st.image("src/img/martechito-logo.png", use_column_width=True)
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
@@ -154,8 +161,11 @@ def main():
                 st.markdown(message["content"])
 
      # Reagir à entrada do usuário
-    if not api_key:
-        st.info("Please enter your OpenAI API key in the sidebar to start chatting.")
+    if not active_api_key:
+        if OPENAI_API_KEY:
+            st.info("You've used up this session's free tokens. Please enter your own OpenAI API key in the sidebar to keep chatting.")
+        else:
+            st.info("Please enter your OpenAI API key in the sidebar to start chatting.")
         return
 
     if prompt := st.chat_input("Type your message here..."):
@@ -167,7 +177,7 @@ def main():
 
         # Invocar o agente
         try:
-            graph = get_graph(api_key)
+            graph = get_graph(active_api_key)
             config = {"configurable": {"thread_id": st.session_state.thread_id}}
             result = graph.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
             answer, sources = extract_answer_and_sources(result)

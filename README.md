@@ -16,7 +16,7 @@ There is no ingestion pipeline, embeddings, or chunking to maintain — search r
 
 Conversation memory is kept per chat session via a LangGraph checkpointer, so follow-up questions retain context automatically.
 
-Each visitor enters their own OpenAI API key directly in the app's sidebar — it's kept only in their browser session (never written to disk or sent anywhere besides OpenAI), so whoever deploys Martechito doesn't need to fund everyone else's usage.
+If the deployer sets an `OPENAI_API_KEY`, each visitor gets a free trial covered by that key, capped at `SESSION_TOKEN_LIMIT` tokens (input + output) per browser session — after that, they must paste their own OpenAI API key into the sidebar to keep chatting, at their own cost. If `OPENAI_API_KEY` is left unset, every visitor has to bring their own key from the first message. A visitor's own key is kept only in their browser session — never written to disk or sent anywhere besides OpenAI.
 
 ## Setup Instructions
 
