@@ -4,9 +4,8 @@ import logging
 import json
 import uuid
 import streamlit.components.v1 as components
-from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
+from langchain_core.messages import HumanMessage
 from agent import build_graph
-from vector_store_client import get_retriever
 from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE
 
 # Configurações iniciais
@@ -23,8 +22,6 @@ def setup_page():
     )
 
 def initialize_state():
-    if "show_custom_search" not in st.session_state:
-        st.session_state.show_custom_search = False
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "thread_id" not in st.session_state:
@@ -32,15 +29,23 @@ def initialize_state():
 
 
 def extract_answer_and_sources(result):
-    answer = result["messages"][-1].content
+    content = result["messages"][-1].content
+    if isinstance(content, str):
+        return content, []
+
+    answer_parts = []
     sources = []
-    for message in result["messages"]:
-        if isinstance(message, ToolMessage) and message.artifact:
-            for doc in message.artifact:
-                title = doc.metadata.get("title", doc.metadata.get("source", "source"))
-                source = doc.metadata.get("source", "")
-                sources.append(f"[{title}]({source})")
-    return answer, list(dict.fromkeys(sources))
+    for block in content:
+        if not isinstance(block, dict):
+            continue
+        if block.get("type") == "text":
+            answer_parts.append(block.get("text", ""))
+            for annotation in block.get("annotations", []):
+                if annotation.get("type") == "url_citation":
+                    title = annotation.get("title") or annotation.get("url")
+                    sources.append(f"[{title}]({annotation['url']})")
+
+    return "".join(answer_parts), list(dict.fromkeys(sources))
 
 
 def main():
@@ -50,27 +55,10 @@ def main():
     setup_logging()
     setup_page()
     initialize_state()
-    retriever = get_retriever()
-    graph = build_graph(retriever)
+    graph = build_graph()
 
     # Barra lateral
     with st.sidebar:
-        if st.button("Custom Vector Search"):
-            st.session_state.show_custom_search = not st.session_state.show_custom_search
-
-        # Exibir opções somente se "Custom Search" estiver ativo
-        if st.session_state.show_custom_search:
-            option = st.selectbox("Select a search method", ["Similarity Score Threshold", "MMR"])
-            if option == "Similarity Score Threshold":
-                score_threshold = st.slider("Select a similarity score threshold", 0.0, 1.0, value=0.5)
-                retriever = get_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": score_threshold})
-            elif option == "MMR":
-                k = st.slider("Select a number of results", 1, 10, value=6)
-                lambda_mult = st.slider("Select a lambda multiplier", 0.0, 1.0, value=0.25)
-                retriever = get_retriever(search_type="mmr", search_kwargs={'k': k, 'lambda_mult': lambda_mult})
-            # Reconstrói o agente com o novo retriever
-            graph = build_graph(retriever)
-
         st.image("src/img/martechito-logo.png", use_column_width=True)
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
         # Conteúdo em inglês
@@ -78,7 +66,7 @@ def main():
         ### About Martechito
         Martechito is a specialized chatbot designed to streamline your experience with GA4, the latest iteration of Google Analytics. As your digital assistant, Martechito provides instant, accurate responses directly from GA4's official documentation and public knowledge base.
 
-        Powered by an agentic Retrieval-Augmented Generation (RAG) pipeline, Martechito integrates OpenAI's GPT models with the Qdrant vector store — deciding on its own when and what to search for — to deliver contextually relevant answers to your inquiries.
+        Powered by an agentic pipeline built on OpenAI's models, Martechito searches Google's official GA4 documentation live — deciding on its own when and what to search for — and grounds every answer in cited sources, instead of relying on a static knowledge base.
 
         Your insights and suggestions are invaluable. Connect with us on [LinkedIn]({LINKEDIN_URL}) or via email at martechito.assistant@gmail.com to share your feedback or contribute to the project's growth.
         """
@@ -96,7 +84,7 @@ def main():
         ### Sobre o Martechito
         O Martechito é um chatbot especializado, projetado para simplificar sua experiência com o GA4, a versão mais recente do Google Analytics. Como seu assistente digital, o Martechito fornece respostas instantâneas e precisas diretamente da documentação oficial do GA4 e da base de conhecimento pública.
 
-        Com um pipeline agentic de Geração Aumentada por Recuperação (RAG), o Martechito integra os modelos GPT da OpenAI com o armazenamento vetorial Qdrant — decidindo por conta própria quando e o que buscar — para entregar respostas contextualmente relevantes às suas perguntas.
+        Com um pipeline agentic sobre os modelos da OpenAI, o Martechito busca ao vivo na documentação oficial do GA4 — decidindo por conta própria quando e o que buscar — e fundamenta cada resposta em fontes citadas, em vez de depender de uma base de conhecimento estática.
 
         Suas percepções e sugestões são inestimáveis. Conecte-se conosco no [LinkedIn]({LINKEDIN_URL}) ou via e-mail em martechito.assistant@gmail.com para compartilhar seu feedback ou contribuir para o crescimento do projeto.
         """

@@ -10,7 +10,9 @@ Martechito is an AI Assistant designed to help you find GA4 information efficien
 
 ## Logic
 
-Martechito is powered by an **agentic RAG** pipeline built with [LangGraph](https://langchain-ai.github.io/langgraph/) and OpenAI. Instead of a fixed "retrieve once, then generate" chain, the LLM itself decides when to search the knowledge base: it calls a `search_ga4_docs` tool, can issue additional, more refined searches if the first results aren't enough, and only answers once it judges the retrieved context sufficient — grounding every response in Qdrant vector store content.
+Martechito is powered by an **agentic pipeline** built with [LangGraph](https://langchain-ai.github.io/langgraph/) and OpenAI's native `web_search` tool (Responses API). Instead of maintaining a vector database, Martechito searches Google's official GA4 documentation live — the search is restricted to `support.google.com`, `developers.google.com`, and `marketingplatform.google.com` via the tool's domain filters, so it can't be grounded in random third-party pages. Every claim is expected to cite the page it came from (`url_citation` annotations returned by the API), which are surfaced as a "Sources" list under each answer so you can verify them yourself.
+
+There is no ingestion pipeline, embeddings, or chunking to maintain — search results are fetched fresh on every question.
 
 Conversation memory is kept per chat session via a LangGraph checkpointer, so follow-up questions retain context automatically.
 
@@ -22,8 +24,7 @@ To get Martechito running on your local machine, follow these steps:
 
 Before installation, you must:
 
-- **Create an OpenAI API Key:** Instructions [here](https://platform.openai.com/api-keys).
-- **Create a Qdrant Cluster:** Save the API Key and URL from the cluster. Instructions [here](https://qdrant.tech/documentation/cloud/quickstart-cloud/).
+- **Create an OpenAI API Key:** Instructions [here](https://platform.openai.com/api-keys). The account needs access to a model that supports the Responses API `web_search` tool (e.g. `gpt-5.5`, `gpt-4.1`) — plain `gpt-4o` does not support it.
 - **Install Python 3.10 or higher:** Instructions [here](https://www.python.org/downloads/).
 - **Install Pip package manager:** Instructions [here](https://pip.pypa.io/en/stable/installation/).
 
@@ -68,15 +69,7 @@ Before installation, you must:
 
 ### Running the Application
 
-1. **Extract and load the documents into the Qdrant cluster (this may take a while):**
-
-    ```bash
-    pip install -r scripts/ingest_ga4_docs/requirements.txt
-    python3 scripts/ingest_ga4_docs/ingest.py
-    ```
-    You should run this file only once, otherwise it will generate duplicated chunks in the DB.
-
-2. **Start the Streamlit application:**
+1. **Start the Streamlit application:**
 
     ```bash
     cd src/streamlit_app
@@ -87,9 +80,7 @@ Before installation, you must:
 
 ## Using Martechito
 
-Once Martechito is up and running, interact with it by typing your GA4-related queries into the chat interface and pressing send. Martechito will then provide insights, code snippets, or guidance based on your questions.
-
-It’s important to note that the Qdrant settings and `ga4_documents.json` file can be customized to fit your specific needs. Please be aware that only a portion of the documents is mapped in the JSON file.
+Once Martechito is up and running, interact with it by typing your GA4-related queries into the chat interface and pressing send. Martechito will then provide insights, code snippets, or guidance based on your questions, along with links to the official documentation it grounded its answer in.
 
 Check the sidebar for additional features and information that might enhance your experience with Martechito.
 
