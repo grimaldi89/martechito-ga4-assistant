@@ -2,17 +2,29 @@
 import streamlit as st
 import logging
 import json
-import streamlit.components.v1 as components
+import threading
+import uuid
 from langchain_core.messages import HumanMessage
-from langchain.globals import set_verbose
-from llm_models import chain, llm, CONTEXTUALIZE_Q_SYSTEM_PROMPT
-from vector_store_client import vectorstore
-from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE
+from agent import build_graph, estimate_cost
+from analytics import log_login, log_interaction
+from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE, OPENAI_API_KEY, SESSION_TOKEN_LIMIT
 
 # Configurações iniciais
 def setup_logging():
-    set_verbose(True)
     logging.basicConfig(level=logging.INFO)
+
+def push_dataLayer_event(event_name, **params):
+    """Push a custom event to the dataLayer on the page GTM is loaded on
+    (injected into Streamlit's own static shell by inject_ga.py). Needed
+    because Streamlit is a single-page app - GTM's default "All Pages"
+    trigger only fires once, on initial load, not on chat/login actions."""
+    payload = json.dumps({"event": event_name, **params})
+    st.iframe(f"""
+    <script>
+      window.parent.dataLayer = window.parent.dataLayer || [];
+      window.parent.dataLayer.push({payload});
+    </script>
+    """, height=1)
 
 def setup_page():
     st.set_page_config(
@@ -24,69 +36,122 @@ def setup_page():
     )
 
 def initialize_state():
-    if "show_custom_search" not in st.session_state:
-        st.session_state.show_custom_search = False
-        logging.info(st.session_state.show_custom_search)
     if "messages" not in st.session_state:
         st.session_state.messages = []
-    if "conversation" not in st.session_state:
-        st.session_state.conversation = []
-        
-def create_retriever():
-    return vectorstore.as_retriever(
-        search_type="similarity_score_threshold",
-        search_kwargs={"score_threshold": 0.5}
+    if "thread_id" not in st.session_state:
+        st.session_state.thread_id = str(uuid.uuid4())
+    if "usage" not in st.session_state:
+        st.session_state.usage = {"input_tokens": 0, "output_tokens": 0, "search_calls": 0}
+
+
+def extract_usage(result):
+    message = result["messages"][-1]
+    usage_metadata = getattr(message, "usage_metadata", None) or {}
+    content = message.content if isinstance(message.content, list) else []
+    search_calls = sum(
+        1 for block in content
+        if isinstance(block, dict) and block.get("type") == "web_search_call"
     )
-    
-
-def create_rag_chain(retriever,contextualize_q_system_prompt):
-    return chain(retriever=retriever, llm=llm, contextualize_q_system_prompt=contextualize_q_system_prompt)
+    return usage_metadata.get("input_tokens", 0), usage_metadata.get("output_tokens", 0), search_calls
 
 
-# Configuração de recuperação
+def extract_answer_and_sources(result):
+    content = result["messages"][-1].content
+    if isinstance(content, str):
+        return content, []
+
+    answer_parts = []
+    sources = []
+    for block in content:
+        if not isinstance(block, dict):
+            continue
+        if block.get("type") == "text":
+            answer_parts.append(block.get("text", ""))
+            for annotation in block.get("annotations", []):
+                if annotation.get("type") == "url_citation":
+                    title = annotation.get("title") or annotation.get("url")
+                    sources.append(f"[{title}]({annotation['url']})")
+
+    return "".join(answer_parts), list(dict.fromkeys(sources))
+
+
+def get_graph(api_key):
+    if st.session_state.get("graph_api_key") != api_key:
+        st.session_state.graph = build_graph(api_key)
+        st.session_state.graph_api_key = api_key
+    return st.session_state.graph
+
 
 def main():
     """
     Função principal para o aplicativo Streamlit.
     """
-   
-    
-    
-    
     setup_logging()
     setup_page()
     initialize_state()
-    retriever = create_retriever()
-    rag_chain = create_rag_chain(retriever,CONTEXTUALIZE_Q_SYSTEM_PROMPT)
-   
-    logging.info(st.session_state)
-    
+
+    if not st.user.is_logged_in:
+        _, center_col, _ = st.columns([1, 1.3, 1])
+        with center_col:
+            st.write("")
+            st.write("")
+            with st.container(border=True):
+                _, logo_col, _ = st.columns([1, 1, 1])
+                with logo_col:
+                    st.image("src/img/martechito-logo.png", width="stretch")
+                st.markdown(
+                    "<h1 style='text-align:center; margin-bottom:0;'>Martechito</h1>"
+                    "<p style='text-align:center; opacity:0.6; margin-top:0;'>GA4 AI Assistant</p>",
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    "<p style='text-align:center;'>Sign in with your Google account to get GA4 answers grounded in official documentation.</p>",
+                    unsafe_allow_html=True,
+                )
+                st.write("")
+                if st.button("Sign in with Google", type="primary", width="stretch"):
+                    st.login()
+        return
+
+    if not st.session_state.get("login_logged"):
+        user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
+        threading.Thread(target=log_login, args=(user_info,), daemon=True).start()
+        push_dataLayer_event("login", method="google", user_email=st.user.email)
+        st.session_state["login_logged"] = True
+
     # Barra lateral
     with st.sidebar:
-        if st.button("Custom Vector Search"):
-            st.session_state.show_custom_search = not st.session_state.show_custom_search
+        st.caption(f"Signed in as {st.user.email}")
+        if st.button("Log out"):
+            st.logout()
+        st.markdown("---")
+        user_api_key = st.text_input(
+            "OpenAI API Key",
+            type="password",
+            help="Only needed after the free session limit is reached. Your key is kept in this browser session only and is never stored."
+        )
+        usage = st.session_state.usage
+        total_tokens = usage["input_tokens"] + usage["output_tokens"]
+        free_tier_available = bool(OPENAI_API_KEY) and total_tokens < SESSION_TOKEN_LIMIT
+        active_api_key = user_api_key or (OPENAI_API_KEY if free_tier_available else None)
 
-        # Exibir opções somente se "Custom Search" estiver ativo
-        if st.session_state.show_custom_search:
-            option = st.selectbox("Select a search method", ["Similarity Score Threshold", "MMR"])
-            if option == "Similarity Score Threshold":
-                score_threshold = st.slider("Select a similarity score threshold", 0.0, 1.0, value=0.5)
-                retriever = vectorstore.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": score_threshold})
-            elif option == "MMR":
-                k = st.slider("Select a number of results", 1, 10, value=6)
-                lambda_mult = st.slider("Select a lambda multiplier", 0.0, 1.0, value=0.25)
-                retriever = vectorstore.as_retriever(search_type="mmr", search_kwargs={'k': k, 'lambda_mult': lambda_mult})
-            # Atualize o rag_chain com o novo retriever
-            rag_chain = chain(retriever=retriever, llm=llm, contextualize_q_system_prompt=CONTEXTUALIZE_Q_SYSTEM_PROMPT)
-            
-        st.image("src/img/martechito-logo.png", use_column_width=True)
+        if user_api_key:
+            st.caption(f"Tokens used this session: {total_tokens:,} ({usage['search_calls']} searches)")
+            cost = estimate_cost(usage["input_tokens"], usage["output_tokens"], usage["search_calls"])
+            if cost is not None:
+                st.caption(f"Estimated cost: ${cost:.4f}")
+        elif OPENAI_API_KEY:
+            st.progress(min(total_tokens / SESSION_TOKEN_LIMIT, 1.0))
+            st.caption(f"Free tier: {total_tokens:,}/{SESSION_TOKEN_LIMIT:,} tokens used this session")
+        st.markdown("---")
+        st.image("src/img/martechito-logo.png", width="stretch")
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
         # Conteúdo em inglês
         about_text_en = f"""
         ### About Martechito
         Martechito is a specialized chatbot designed to streamline your experience with GA4, the latest iteration of Google Analytics. As your digital assistant, Martechito provides instant, accurate responses directly from GA4's official documentation and public knowledge base.
 
-        Powered by a state-of-the-art Retrieval-Augmented Generation (RAG) model, Martechito integrates OpenAI's GPT-4 with the Qdrant vector store to deliver contextually relevant answers to your inquiries.
+        Powered by an agentic pipeline built on OpenAI's models, Martechito searches Google's official GA4 documentation live — deciding on its own when and what to search for — and grounds every answer in cited sources, instead of relying on a static knowledge base.
 
         Your insights and suggestions are invaluable. Connect with us on [LinkedIn]({LINKEDIN_URL}) or via email at martechito.assistant@gmail.com to share your feedback or contribute to the project's growth.
         """
@@ -104,7 +169,7 @@ def main():
         ### Sobre o Martechito
         O Martechito é um chatbot especializado, projetado para simplificar sua experiência com o GA4, a versão mais recente do Google Analytics. Como seu assistente digital, o Martechito fornece respostas instantâneas e precisas diretamente da documentação oficial do GA4 e da base de conhecimento pública.
 
-        Com a tecnologia de ponta do modelo de Geração Aumentada por Recuperação (RAG), o Martechito integra o GPT-4 da OpenAI com o armazenamento vetorial Qdrant para entregar respostas contextualmente relevantes às suas perguntas.
+        Com um pipeline agentic sobre os modelos da OpenAI, o Martechito busca ao vivo na documentação oficial do GA4 — decidindo por conta própria quando e o que buscar — e fundamenta cada resposta em fontes citadas, em vez de depender de uma base de conhecimento estática.
 
         Suas percepções e sugestões são inestimáveis. Conecte-se conosco no [LinkedIn]({LINKEDIN_URL}) ou via e-mail em martechito.assistant@gmail.com para compartilhar seu feedback ou contribuir para o crescimento do projeto.
         """
@@ -126,10 +191,10 @@ def main():
             st.sidebar.markdown(interactions_text_pt)
 
         st.sidebar.markdown("---")
-        
+
         st.markdown(f"<a href='{LINKEDIN_URL}'><img src='{LINKEDIN_IMAGE}' style='height:50px; margin-right: 10px;'></a>"
                     , unsafe_allow_html=True)
-    
+
     with st.chat_message("assistant"):
         st.markdown("My name is Martechito, GA4 AI assistant, how can I help you today?")
 
@@ -140,35 +205,51 @@ def main():
                 st.markdown(message["content"])
 
      # Reagir à entrada do usuário
+    if not active_api_key:
+        if OPENAI_API_KEY:
+            st.info("You've used up this session's free tokens. Please enter your own OpenAI API key in the sidebar to keep chatting.")
+        else:
+            st.info("Please enter your OpenAI API key in the sidebar to start chatting.")
+        return
+
     if prompt := st.chat_input("Type your message here..."):
-            
+
         with st.chat_message("user"):
             st.markdown(prompt)
-                
+
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.session_state.conversation.append({"role": "user", "content": prompt})
-        
-            # Invocar o modelo QA
-        last_four_interactions = st.session_state.conversation[-4:]
-        response = rag_chain.invoke({"input": prompt, "chat_history": last_four_interactions})
-        sources = list(set([f"[{doc.metadata['title']}]({doc.metadata['source']})" for doc in response["context"]]))
-            
+
+        # Invocar o agente
+        try:
+            graph = get_graph(active_api_key)
+            config = {"configurable": {"thread_id": st.session_state.thread_id}}
+            result = graph.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
+            answer, sources = extract_answer_and_sources(result)
+            input_tokens, output_tokens, search_calls = extract_usage(result)
+            st.session_state.usage["input_tokens"] += input_tokens
+            st.session_state.usage["output_tokens"] += output_tokens
+            st.session_state.usage["search_calls"] += search_calls
+        except Exception as e:
+            logging.error(f"Agent call failed: {e}")
+            with st.chat_message("assistant"):
+                st.error("Something went wrong calling OpenAI — check that your API key is valid and has access to the configured model.")
+            return
+
         if sources:
-            response["answer"] = f"{response['answer']} \n\n**Sources**:\n\n" + "\n\n".join(sources) + "\n"
+            answer = f"{answer} \n\n**Sources**:\n\n" + "\n\n".join(sources) + "\n"
 
         with st.chat_message("assistant"):
-            st.markdown(response["answer"])
-        st.session_state.conversation.extend([HumanMessage(content=prompt), response["answer"]])
-        st.session_state.messages.append({"role": "assistant", "content": response["answer"]})
-        
-        ##escaped_prompt = json.dumps(prompt)
-        answer = response["answer"]
-        components.html(f"""
-        <script>
-          window.parent.parent.postMessage({{ type: 'prompt', prompt_data: {{'question':'{json.dumps(prompt)}','answer':'{json.dumps(answer)}'}} }}, '*');
-          
-        </script>
-        """, height=0)
+            st.markdown(answer)
+        st.session_state.messages.append({"role": "assistant", "content": answer})
+
+        user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
+        threading.Thread(target=log_interaction, args=(user_info, prompt, answer), daemon=True).start()
+        push_dataLayer_event(
+            "chat_message",
+            user_email=st.user.email,
+            message_length=len(prompt),
+            has_sources=bool(sources),
+        )
 
 if __name__ == "__main__":
     main()
