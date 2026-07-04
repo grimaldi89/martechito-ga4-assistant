@@ -48,6 +48,13 @@ def extract_answer_and_sources(result):
     return "".join(answer_parts), list(dict.fromkeys(sources))
 
 
+def get_graph(api_key):
+    if st.session_state.get("graph_api_key") != api_key:
+        st.session_state.graph = build_graph(api_key)
+        st.session_state.graph_api_key = api_key
+    return st.session_state.graph
+
+
 def main():
     """
     Função principal para o aplicativo Streamlit.
@@ -55,10 +62,15 @@ def main():
     setup_logging()
     setup_page()
     initialize_state()
-    graph = build_graph()
 
     # Barra lateral
     with st.sidebar:
+        api_key = st.text_input(
+            "OpenAI API Key",
+            type="password",
+            help="Your key is only kept in this browser session and is never stored."
+        )
+        st.markdown("---")
         st.image("src/img/martechito-logo.png", use_column_width=True)
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
         # Conteúdo em inglês
@@ -120,6 +132,10 @@ def main():
                 st.markdown(message["content"])
 
      # Reagir à entrada do usuário
+    if not api_key:
+        st.info("Please enter your OpenAI API key in the sidebar to start chatting.")
+        return
+
     if prompt := st.chat_input("Type your message here..."):
 
         with st.chat_message("user"):
@@ -128,9 +144,16 @@ def main():
         st.session_state.messages.append({"role": "user", "content": prompt})
 
         # Invocar o agente
-        config = {"configurable": {"thread_id": st.session_state.thread_id}}
-        result = graph.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
-        answer, sources = extract_answer_and_sources(result)
+        try:
+            graph = get_graph(api_key)
+            config = {"configurable": {"thread_id": st.session_state.thread_id}}
+            result = graph.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
+            answer, sources = extract_answer_and_sources(result)
+        except Exception as e:
+            logging.error(f"Agent call failed: {e}")
+            with st.chat_message("assistant"):
+                st.error("Something went wrong calling OpenAI — check that your API key is valid and has access to the configured model.")
+            return
 
         if sources:
             answer = f"{answer} \n\n**Sources**:\n\n" + "\n\n".join(sources) + "\n"

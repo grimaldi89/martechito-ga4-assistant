@@ -11,11 +11,6 @@ ALLOWED_DOMAINS = [
     "marketingplatform.google.com",
 ]
 
-llm = ChatOpenAI(model=MODEL, temperature=0)
-llm_with_search = llm.bind_tools([
-    {"type": "web_search", "filters": {"allowed_domains": ALLOWED_DOMAINS}}
-])
-
 SYSTEM_PROMPT = f"""You are an AI agent called Martechito, working for a consultancy specialized in data, specifically GA4.
 Your job is to answer questions for clients of this consultancy who license the product with them.
 You need to be clear, didactic, detailed, and respectful in your responses. If you don't know an answer, respectfully say that you don't know.
@@ -28,7 +23,12 @@ You have a web search tool, restricted to {", ".join(ALLOWED_DOMAINS)}. For any 
 """
 
 
-def build_graph():
+def build_graph(api_key: str):
+    llm = ChatOpenAI(model=MODEL, temperature=0, api_key=api_key)
+    llm_with_search = llm.bind_tools([
+        {"type": "web_search", "filters": {"allowed_domains": ALLOWED_DOMAINS}}
+    ])
+
     def agent_node(state: MessagesState):
         messages = [SystemMessage(content=SYSTEM_PROMPT), *state["messages"]]
         response = llm_with_search.invoke(messages)

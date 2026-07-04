@@ -16,6 +16,8 @@ There is no ingestion pipeline, embeddings, or chunking to maintain — search r
 
 Conversation memory is kept per chat session via a LangGraph checkpointer, so follow-up questions retain context automatically.
 
+Each visitor enters their own OpenAI API key directly in the app's sidebar — it's kept only in their browser session (never written to disk or sent anywhere besides OpenAI), so whoever deploys Martechito doesn't need to fund everyone else's usage.
+
 ## Setup Instructions
 
 To get Martechito running on your local machine, follow these steps:
@@ -24,7 +26,7 @@ To get Martechito running on your local machine, follow these steps:
 
 Before installation, you must:
 
-- **Create an OpenAI API Key:** Instructions [here](https://platform.openai.com/api-keys). The account needs access to a model that supports the Responses API `web_search` tool (e.g. `gpt-5.5`, `gpt-4.1`) — plain `gpt-4o` does not support it.
+- **Create an OpenAI API Key:** Instructions [here](https://platform.openai.com/api-keys). You'll paste this into the app's sidebar when it's running (see below) — the account needs access to a model that supports the Responses API `web_search` tool (e.g. `gpt-5.5`, `gpt-4.1`); plain `gpt-4o` does not support it.
 - **Install Python 3.10 or higher:** Instructions [here](https://www.python.org/downloads/).
 - **Install Pip package manager:** Instructions [here](https://pip.pypa.io/en/stable/installation/).
 
@@ -80,7 +82,7 @@ Before installation, you must:
 
 ## Using Martechito
 
-Once Martechito is up and running, interact with it by typing your GA4-related queries into the chat interface and pressing send. Martechito will then provide insights, code snippets, or guidance based on your questions, along with links to the official documentation it grounded its answer in.
+Once Martechito is up and running, paste your OpenAI API key into the sidebar field, then interact with it by typing your GA4-related queries into the chat interface and pressing send. Martechito will then provide insights, code snippets, or guidance based on your questions, along with links to the official documentation it grounded its answer in.
 
 Check the sidebar for additional features and information that might enhance your experience with Martechito.
 
