@@ -89,16 +89,13 @@ def main():
         active_api_key = user_api_key or (OPENAI_API_KEY if free_tier_available else None)
 
         if user_api_key:
+            st.caption(f"Tokens used this session: {total_tokens:,} ({usage['search_calls']} searches)")
             cost = estimate_cost(usage["input_tokens"], usage["output_tokens"], usage["search_calls"])
             if cost is not None:
-                st.caption(f"Estimated session cost: ${cost:.4f}")
-            elif usage["input_tokens"] or usage["output_tokens"]:
-                st.caption(
-                    f"Session usage: {usage['input_tokens']} in / {usage['output_tokens']} out tokens, "
-                    f"{usage['search_calls']} searches (no pricing data for this model)"
-                )
+                st.caption(f"Estimated cost: ${cost:.4f}")
         elif OPENAI_API_KEY:
-            st.caption(f"Free tier: {total_tokens}/{SESSION_TOKEN_LIMIT} tokens used this session")
+            st.progress(min(total_tokens / SESSION_TOKEN_LIMIT, 1.0))
+            st.caption(f"Free tier: {total_tokens:,}/{SESSION_TOKEN_LIMIT:,} tokens used this session")
         st.markdown("---")
         st.image("src/img/martechito-logo.png", use_column_width=True)
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
