@@ -20,6 +20,8 @@ If the deployer sets an `OPENAI_API_KEY`, each visitor gets a free trial covered
 
 Access to the app itself requires signing in with a Google account first, via Streamlit's native [`st.login()`](https://docs.streamlit.io/develop/api-reference/user/st.login) (OIDC) — nobody can reach the chat, free tier or not, without logging in.
 
+Each login is recorded to Firestore (`users/{email}/logins/{timestamp}`, plus a `last_login`/`login_count` on the user's own document), mirroring the layout the chat-logging Cloud Function already uses. This runs in a background thread and never blocks the login itself; it relies on [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials) with Firestore write access — already satisfied by the Cloud Run service account in production, but for local testing you'll need `gcloud auth application-default login` or a `GOOGLE_APPLICATION_CREDENTIALS` service account key, otherwise logins simply won't be recorded (logged as a server-side error, chat still works).
+
 ## Setup Instructions
 
 To get Martechito running on your local machine, follow these steps:

@@ -2,10 +2,12 @@
 import streamlit as st
 import logging
 import json
+import threading
 import uuid
 import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
 from agent import build_graph, estimate_cost
+from analytics import log_login
 from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE, OPENAI_API_KEY, SESSION_TOKEN_LIMIT
 
 # Configurações iniciais
@@ -77,11 +79,32 @@ def main():
     initialize_state()
 
     if not st.user.is_logged_in:
-        st.markdown("<h2 style='text-align: center;'>Martechito <br> GA4 Assistant</h2>", unsafe_allow_html=True)
-        st.write("Sign in with your Google account to continue.")
-        if st.button("Sign in with Google"):
-            st.login()
+        _, center_col, _ = st.columns([1, 1.3, 1])
+        with center_col:
+            st.write("")
+            st.write("")
+            with st.container(border=True):
+                _, logo_col, _ = st.columns([1, 1, 1])
+                with logo_col:
+                    st.image("src/img/martechito-logo.png", width="stretch")
+                st.markdown(
+                    "<h1 style='text-align:center; margin-bottom:0;'>Martechito</h1>"
+                    "<p style='text-align:center; opacity:0.6; margin-top:0;'>GA4 AI Assistant</p>",
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    "<p style='text-align:center;'>Sign in with your Google account to get GA4 answers grounded in official documentation.</p>",
+                    unsafe_allow_html=True,
+                )
+                st.write("")
+                if st.button("Sign in with Google", type="primary", width="stretch"):
+                    st.login()
         return
+
+    if not st.session_state.get("login_logged"):
+        user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
+        threading.Thread(target=log_login, args=(user_info,), daemon=True).start()
+        st.session_state["login_logged"] = True
 
     # Barra lateral
     with st.sidebar:
