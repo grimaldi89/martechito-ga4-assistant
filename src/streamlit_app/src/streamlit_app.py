@@ -6,7 +6,6 @@ import uuid
 import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
 from agent import build_graph, estimate_cost
-from auth import get_authenticator
 from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE, OPENAI_API_KEY, SESSION_TOKEN_LIMIT
 
 # Configurações iniciais
@@ -77,22 +76,18 @@ def main():
     setup_page()
     initialize_state()
 
-    authenticator = get_authenticator()
-    authenticator.check_authentification()
-
-    if not st.session_state.get("connected"):
+    if not st.user.is_logged_in:
         st.markdown("<h2 style='text-align: center;'>Martechito <br> GA4 Assistant</h2>", unsafe_allow_html=True)
         st.write("Sign in with your Google account to continue.")
-        authenticator.login()
+        if st.button("Sign in with Google"):
+            st.login()
         return
 
     # Barra lateral
     with st.sidebar:
-        user_info = st.session_state["user_info"]
-        st.caption(f"Signed in as {user_info['email']}")
+        st.caption(f"Signed in as {st.user.email}")
         if st.button("Log out"):
-            authenticator.logout()
-            st.rerun()
+            st.logout()
         st.markdown("---")
         user_api_key = st.text_input(
             "OpenAI API Key",
@@ -113,7 +108,7 @@ def main():
             st.progress(min(total_tokens / SESSION_TOKEN_LIMIT, 1.0))
             st.caption(f"Free tier: {total_tokens:,}/{SESSION_TOKEN_LIMIT:,} tokens used this session")
         st.markdown("---")
-        st.image("src/img/martechito-logo.png", use_column_width=True)
+        st.image("src/img/martechito-logo.png", width="stretch")
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
         # Conteúdo em inglês
         about_text_en = f"""

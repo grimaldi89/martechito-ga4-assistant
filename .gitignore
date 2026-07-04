@@ -7,5 +7,6 @@ venv/
 howto.txt
 google_credentials.json
 client_secret*.json
+secrets.toml
 node_modules
 .firebase/

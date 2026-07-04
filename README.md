@@ -18,7 +18,7 @@ Conversation memory is kept per chat session via a LangGraph checkpointer, so fo
 
 If the deployer sets an `OPENAI_API_KEY`, each visitor gets a free trial covered by that key, capped at `SESSION_TOKEN_LIMIT` tokens (input + output) per browser session — after that, they must paste their own OpenAI API key into the sidebar to keep chatting, at their own cost. If `OPENAI_API_KEY` is left unset, every visitor has to bring their own key from the first message. A visitor's own key is kept only in their browser session — never written to disk or sent anywhere besides OpenAI.
 
-Access to the app itself requires signing in with a Google account first (via [streamlit-google-auth](https://pypi.org/project/streamlit-google-auth/)) — nobody can reach the chat, free tier or not, without logging in.
+Access to the app itself requires signing in with a Google account first, via Streamlit's native [`st.login()`](https://docs.streamlit.io/develop/api-reference/user/st.login) (OIDC) — nobody can reach the chat, free tier or not, without logging in.
 
 ## Setup Instructions
 
@@ -35,15 +35,13 @@ Before installation, you must:
 
 ### Google Sign-In
 
-Martechito requires visitors to sign in with Google before they can chat. To set this up:
+Martechito requires visitors to sign in with Google before they can chat, using Streamlit's built-in authentication (configured via `.streamlit/secrets.toml`, not `.env`). To set this up:
 
 1. Go to the [Google Cloud Console credentials page](https://console.cloud.google.com/apis/credentials) for the project you want to use (can be the same project as your Firebase project).
 2. If prompted, configure the **OAuth consent screen** first (External user type; add the `openid`, `.../auth/userinfo.email` and `.../auth/userinfo.profile` scopes).
 3. Click **Create Credentials → OAuth client ID**, application type **Web application**.
-4. Under **Authorized redirect URIs**, add every URL the app will be served from — at minimum `http://localhost:8501` for local testing, plus your production URL once deployed. This must match `GOOGLE_OAUTH_REDIRECT_URI` in your `.env` exactly.
-5. Download the resulting JSON file, save it as `client_secret.json` inside `src/streamlit_app/` (next to `.env`) — **never commit this file** (it's already covered by `.gitignore`).
-6. Generate a random secret for signing the login cookie: `python3 -c "import secrets; print(secrets.token_hex(32))"`.
-7. Set `GOOGLE_OAUTH_CLIENT_SECRETS_PATH`, `GOOGLE_OAUTH_REDIRECT_URI`, and `GOOGLE_OAUTH_COOKIE_KEY` in your `.env` accordingly (see `.env.example`).
+4. Under **Authorized redirect URIs**, add every URL the app will be served from with an `/oauth2callback` suffix — at minimum `http://localhost:8501/oauth2callback` for local testing, plus your production URL's equivalent once deployed. This must match `redirect_uri` in `secrets.toml` exactly.
+5. Copy `src/streamlit_app/.streamlit/secrets.toml.example` to `src/streamlit_app/.streamlit/secrets.toml` — **never commit this file** (already covered by `.gitignore`) — and fill in `client_id` and `client_secret` from the OAuth client you just created (visible on the credentials page, or inside the JSON file you can download from there), `redirect_uri` from step 4, and a random `cookie_secret` (`python3 -c "import secrets; print(secrets.token_hex(32))"`).
 
 ### Installation
 
