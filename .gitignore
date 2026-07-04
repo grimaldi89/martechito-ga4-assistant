@@ -7,3 +7,4 @@ venv/
 howto.txt
 google_credentials.json
 node_modules
+.firebase/
