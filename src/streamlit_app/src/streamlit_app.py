@@ -4,7 +4,6 @@ import logging
 import json
 import threading
 import uuid
-import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
 from agent import build_graph, estimate_cost
 from analytics import log_login, log_interaction
@@ -20,12 +19,12 @@ def push_dataLayer_event(event_name, **params):
     because Streamlit is a single-page app - GTM's default "All Pages"
     trigger only fires once, on initial load, not on chat/login actions."""
     payload = json.dumps({"event": event_name, **params})
-    components.html(f"""
+    st.iframe(f"""
     <script>
       window.parent.dataLayer = window.parent.dataLayer || [];
       window.parent.dataLayer.push({payload});
     </script>
-    """, height=0)
+    """, height=1)
 
 def setup_page():
     st.set_page_config(
@@ -251,13 +250,6 @@ def main():
             message_length=len(prompt),
             has_sources=bool(sources),
         )
-
-        components.html(f"""
-        <script>
-          window.parent.parent.postMessage({{ type: 'prompt', prompt_data: {{'question':'{json.dumps(prompt)}','answer':'{json.dumps(answer)}'}} }}, '*');
-
-        </script>
-        """, height=0)
 
 if __name__ == "__main__":
     main()
