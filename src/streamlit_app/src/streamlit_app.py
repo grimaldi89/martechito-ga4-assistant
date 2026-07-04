@@ -5,7 +5,7 @@ import json
 import uuid
 import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
-from agent import build_graph
+from agent import build_graph, estimate_cost
 from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE
 
 # Configurações iniciais
@@ -26,6 +26,19 @@ def initialize_state():
         st.session_state.messages = []
     if "thread_id" not in st.session_state:
         st.session_state.thread_id = str(uuid.uuid4())
+    if "usage" not in st.session_state:
+        st.session_state.usage = {"input_tokens": 0, "output_tokens": 0, "search_calls": 0}
+
+
+def extract_usage(result):
+    message = result["messages"][-1]
+    usage_metadata = getattr(message, "usage_metadata", None) or {}
+    content = message.content if isinstance(message.content, list) else []
+    search_calls = sum(
+        1 for block in content
+        if isinstance(block, dict) and block.get("type") == "web_search_call"
+    )
+    return usage_metadata.get("input_tokens", 0), usage_metadata.get("output_tokens", 0), search_calls
 
 
 def extract_answer_and_sources(result):
@@ -70,6 +83,15 @@ def main():
             type="password",
             help="Your key is only kept in this browser session and is never stored."
         )
+        usage = st.session_state.usage
+        cost = estimate_cost(usage["input_tokens"], usage["output_tokens"], usage["search_calls"])
+        if cost is not None:
+            st.caption(f"Estimated session cost: ${cost:.4f}")
+        elif usage["input_tokens"] or usage["output_tokens"]:
+            st.caption(
+                f"Session usage: {usage['input_tokens']} in / {usage['output_tokens']} out tokens, "
+                f"{usage['search_calls']} searches (no pricing data for this model)"
+            )
         st.markdown("---")
         st.image("src/img/martechito-logo.png", use_column_width=True)
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
@@ -149,6 +171,10 @@ def main():
             config = {"configurable": {"thread_id": st.session_state.thread_id}}
             result = graph.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
             answer, sources = extract_answer_and_sources(result)
+            input_tokens, output_tokens, search_calls = extract_usage(result)
+            st.session_state.usage["input_tokens"] += input_tokens
+            st.session_state.usage["output_tokens"] += output_tokens
+            st.session_state.usage["search_calls"] += search_calls
         except Exception as e:
             logging.error(f"Agent call failed: {e}")
             with st.chat_message("assistant"):

@@ -11,6 +11,24 @@ ALLOWED_DOMAINS = [
     "marketingplatform.google.com",
 ]
 
+# Standard-tier per-1M-token pricing (USD). Only models we've verified pricing
+# for are listed; unlisted models fall back to "no cost estimate available".
+MODEL_PRICING = {
+    "gpt-5.5": {"input_per_1m": 5.00, "output_per_1m": 30.00},
+}
+WEB_SEARCH_CALL_PRICE = 0.01
+
+
+def estimate_cost(input_tokens: int, output_tokens: int, search_calls: int):
+    pricing = MODEL_PRICING.get(MODEL)
+    if not pricing:
+        return None
+    return (
+        (input_tokens / 1_000_000) * pricing["input_per_1m"]
+        + (output_tokens / 1_000_000) * pricing["output_per_1m"]
+        + search_calls * WEB_SEARCH_CALL_PRICE
+    )
+
 SYSTEM_PROMPT = f"""You are an AI agent called Martechito, working for a consultancy specialized in data, specifically GA4.
 Your job is to answer questions for clients of this consultancy who license the product with them.
 You need to be clear, didactic, detailed, and respectful in your responses. If you don't know an answer, respectfully say that you don't know.
