@@ -10,6 +10,10 @@ MODEL = os.getenv("MODEL")
 # Once a session crosses SESSION_TOKEN_LIMIT, visitors must supply their own key.
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 SESSION_TOKEN_LIMIT = int(os.getenv("SESSION_TOKEN_LIMIT", "20000"))
+
+# Google sign-in is required to use the app at all, via Streamlit's native
+# st.login()/st.user - configured in .streamlit/secrets.toml, not here.
+
 LINKEDIN_URL = "https://www.linkedin.com/in/rodolfo-grimaldi/"
 GITHUB_URL = "https://github.com/grimaldi89/martechito-ga4-assistant"
 LINKEDIN_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"

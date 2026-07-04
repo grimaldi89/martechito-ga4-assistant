@@ -2,10 +2,12 @@
 import streamlit as st
 import logging
 import json
+import threading
 import uuid
 import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
 from agent import build_graph, estimate_cost
+from analytics import log_login, log_interaction
 from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE, OPENAI_API_KEY, SESSION_TOKEN_LIMIT
 
 # Configurações iniciais
@@ -76,8 +78,40 @@ def main():
     setup_page()
     initialize_state()
 
+    if not st.user.is_logged_in:
+        _, center_col, _ = st.columns([1, 1.3, 1])
+        with center_col:
+            st.write("")
+            st.write("")
+            with st.container(border=True):
+                _, logo_col, _ = st.columns([1, 1, 1])
+                with logo_col:
+                    st.image("src/img/martechito-logo.png", width="stretch")
+                st.markdown(
+                    "<h1 style='text-align:center; margin-bottom:0;'>Martechito</h1>"
+                    "<p style='text-align:center; opacity:0.6; margin-top:0;'>GA4 AI Assistant</p>",
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    "<p style='text-align:center;'>Sign in with your Google account to get GA4 answers grounded in official documentation.</p>",
+                    unsafe_allow_html=True,
+                )
+                st.write("")
+                if st.button("Sign in with Google", type="primary", width="stretch"):
+                    st.login()
+        return
+
+    if not st.session_state.get("login_logged"):
+        user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
+        threading.Thread(target=log_login, args=(user_info,), daemon=True).start()
+        st.session_state["login_logged"] = True
+
     # Barra lateral
     with st.sidebar:
+        st.caption(f"Signed in as {st.user.email}")
+        if st.button("Log out"):
+            st.logout()
+        st.markdown("---")
         user_api_key = st.text_input(
             "OpenAI API Key",
             type="password",
@@ -97,7 +131,7 @@ def main():
             st.progress(min(total_tokens / SESSION_TOKEN_LIMIT, 1.0))
             st.caption(f"Free tier: {total_tokens:,}/{SESSION_TOKEN_LIMIT:,} tokens used this session")
         st.markdown("---")
-        st.image("src/img/martechito-logo.png", use_column_width=True)
+        st.image("src/img/martechito-logo.png", width="stretch")
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
         # Conteúdo em inglês
         about_text_en = f"""
@@ -194,6 +228,9 @@ def main():
         with st.chat_message("assistant"):
             st.markdown(answer)
         st.session_state.messages.append({"role": "assistant", "content": answer})
+
+        user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
+        threading.Thread(target=log_interaction, args=(user_info, prompt, answer), daemon=True).start()
 
         components.html(f"""
         <script>
