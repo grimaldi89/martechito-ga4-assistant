@@ -7,7 +7,7 @@ import uuid
 import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
 from agent import build_graph, estimate_cost
-from analytics import log_login
+from analytics import log_login, log_interaction
 from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE, OPENAI_API_KEY, SESSION_TOKEN_LIMIT
 
 # Configurações iniciais
@@ -228,6 +228,9 @@ def main():
         with st.chat_message("assistant"):
             st.markdown(answer)
         st.session_state.messages.append({"role": "assistant", "content": answer})
+
+        user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
+        threading.Thread(target=log_interaction, args=(user_info, prompt, answer), daemon=True).start()
 
         components.html(f"""
         <script>

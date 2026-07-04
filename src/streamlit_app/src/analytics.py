@@ -34,3 +34,26 @@ def log_login(user_info: dict):
         )
     except Exception as e:
         logging.error(f"Failed to log login for {email}: {e}")
+
+
+def log_interaction(user_info: dict, question: str, answer: str):
+    """Record a chat interaction in Firestore, in the same
+    users/{email}/interactions/{timestamp} layout the old Cloud Function
+    (prompt-receptor, called via postMessage from public/index.html) wrote
+    to - now written directly, since the app no longer depends on running
+    inside that iframe to know who's logged in."""
+    email = user_info.get("email")
+    if not email:
+        return
+    try:
+        db = _get_client()
+        timestamp = datetime.now(timezone.utc).isoformat()
+        db.document(f"users/{email}/interactions/{timestamp}").set(
+            {
+                "prompt_data": {"question": question, "answer": answer, "timestamp": timestamp},
+                "user_info": user_info,
+            },
+            timeout=FIRESTORE_TIMEOUT_SECONDS,
+        )
+    except Exception as e:
+        logging.error(f"Failed to log interaction for {email}: {e}")
