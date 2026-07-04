@@ -2,16 +2,15 @@
 import streamlit as st
 import logging
 import json
+import uuid
 import streamlit.components.v1 as components
-from langchain_core.messages import HumanMessage
-from langchain.globals import set_verbose
-from llm_models import chain, llm, CONTEXTUALIZE_Q_SYSTEM_PROMPT
-from vector_store_client import vectorstore
+from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
+from agent import build_graph
+from vector_store_client import get_retriever
 from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE
 
 # Configurações iniciais
 def setup_logging():
-    set_verbose(True)
     logging.basicConfig(level=logging.INFO)
 
 def setup_page():
@@ -26,41 +25,34 @@ def setup_page():
 def initialize_state():
     if "show_custom_search" not in st.session_state:
         st.session_state.show_custom_search = False
-        logging.info(st.session_state.show_custom_search)
     if "messages" not in st.session_state:
         st.session_state.messages = []
-    if "conversation" not in st.session_state:
-        st.session_state.conversation = []
-        
-def create_retriever():
-    return vectorstore.as_retriever(
-        search_type="similarity_score_threshold",
-        search_kwargs={"score_threshold": 0.5}
-    )
-    
-
-def create_rag_chain(retriever,contextualize_q_system_prompt):
-    return chain(retriever=retriever, llm=llm, contextualize_q_system_prompt=contextualize_q_system_prompt)
+    if "thread_id" not in st.session_state:
+        st.session_state.thread_id = str(uuid.uuid4())
 
 
-# Configuração de recuperação
+def extract_answer_and_sources(result):
+    answer = result["messages"][-1].content
+    sources = []
+    for message in result["messages"]:
+        if isinstance(message, ToolMessage) and message.artifact:
+            for doc in message.artifact:
+                title = doc.metadata.get("title", doc.metadata.get("source", "source"))
+                source = doc.metadata.get("source", "")
+                sources.append(f"[{title}]({source})")
+    return answer, list(dict.fromkeys(sources))
+
 
 def main():
     """
     Função principal para o aplicativo Streamlit.
     """
-   
-    
-    
-    
     setup_logging()
     setup_page()
     initialize_state()
-    retriever = create_retriever()
-    rag_chain = create_rag_chain(retriever,CONTEXTUALIZE_Q_SYSTEM_PROMPT)
-   
-    logging.info(st.session_state)
-    
+    retriever = get_retriever()
+    graph = build_graph(retriever)
+
     # Barra lateral
     with st.sidebar:
         if st.button("Custom Vector Search"):
@@ -71,14 +63,14 @@ def main():
             option = st.selectbox("Select a search method", ["Similarity Score Threshold", "MMR"])
             if option == "Similarity Score Threshold":
                 score_threshold = st.slider("Select a similarity score threshold", 0.0, 1.0, value=0.5)
-                retriever = vectorstore.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": score_threshold})
+                retriever = get_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": score_threshold})
             elif option == "MMR":
                 k = st.slider("Select a number of results", 1, 10, value=6)
                 lambda_mult = st.slider("Select a lambda multiplier", 0.0, 1.0, value=0.25)
-                retriever = vectorstore.as_retriever(search_type="mmr", search_kwargs={'k': k, 'lambda_mult': lambda_mult})
-            # Atualize o rag_chain com o novo retriever
-            rag_chain = chain(retriever=retriever, llm=llm, contextualize_q_system_prompt=CONTEXTUALIZE_Q_SYSTEM_PROMPT)
-            
+                retriever = get_retriever(search_type="mmr", search_kwargs={'k': k, 'lambda_mult': lambda_mult})
+            # Reconstrói o agente com o novo retriever
+            graph = build_graph(retriever)
+
         st.image("src/img/martechito-logo.png", use_column_width=True)
         language = st.sidebar.selectbox("Select Language", ["English","Português"])
         # Conteúdo em inglês
@@ -86,7 +78,7 @@ def main():
         ### About Martechito
         Martechito is a specialized chatbot designed to streamline your experience with GA4, the latest iteration of Google Analytics. As your digital assistant, Martechito provides instant, accurate responses directly from GA4's official documentation and public knowledge base.
 
-        Powered by a state-of-the-art Retrieval-Augmented Generation (RAG) model, Martechito integrates OpenAI's GPT-4 with the Qdrant vector store to deliver contextually relevant answers to your inquiries.
+        Powered by an agentic Retrieval-Augmented Generation (RAG) pipeline, Martechito integrates OpenAI's GPT models with the Qdrant vector store — deciding on its own when and what to search for — to deliver contextually relevant answers to your inquiries.
 
         Your insights and suggestions are invaluable. Connect with us on [LinkedIn]({LINKEDIN_URL}) or via email at martechito.assistant@gmail.com to share your feedback or contribute to the project's growth.
         """
@@ -104,7 +96,7 @@ def main():
         ### Sobre o Martechito
         O Martechito é um chatbot especializado, projetado para simplificar sua experiência com o GA4, a versão mais recente do Google Analytics. Como seu assistente digital, o Martechito fornece respostas instantâneas e precisas diretamente da documentação oficial do GA4 e da base de conhecimento pública.
 
-        Com a tecnologia de ponta do modelo de Geração Aumentada por Recuperação (RAG), o Martechito integra o GPT-4 da OpenAI com o armazenamento vetorial Qdrant para entregar respostas contextualmente relevantes às suas perguntas.
+        Com um pipeline agentic de Geração Aumentada por Recuperação (RAG), o Martechito integra os modelos GPT da OpenAI com o armazenamento vetorial Qdrant — decidindo por conta própria quando e o que buscar — para entregar respostas contextualmente relevantes às suas perguntas.
 
         Suas percepções e sugestões são inestimáveis. Conecte-se conosco no [LinkedIn]({LINKEDIN_URL}) ou via e-mail em martechito.assistant@gmail.com para compartilhar seu feedback ou contribuir para o crescimento do projeto.
         """
@@ -126,10 +118,10 @@ def main():
             st.sidebar.markdown(interactions_text_pt)
 
         st.sidebar.markdown("---")
-        
+
         st.markdown(f"<a href='{LINKEDIN_URL}'><img src='{LINKEDIN_IMAGE}' style='height:50px; margin-right: 10px;'></a>"
                     , unsafe_allow_html=True)
-    
+
     with st.chat_message("assistant"):
         st.markdown("My name is Martechito, GA4 AI assistant, how can I help you today?")
 
@@ -141,32 +133,28 @@ def main():
 
      # Reagir à entrada do usuário
     if prompt := st.chat_input("Type your message here..."):
-            
+
         with st.chat_message("user"):
             st.markdown(prompt)
-                
+
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.session_state.conversation.append({"role": "user", "content": prompt})
-        
-            # Invocar o modelo QA
-        last_four_interactions = st.session_state.conversation[-4:]
-        response = rag_chain.invoke({"input": prompt, "chat_history": last_four_interactions})
-        sources = list(set([f"[{doc.metadata['title']}]({doc.metadata['source']})" for doc in response["context"]]))
-            
+
+        # Invocar o agente
+        config = {"configurable": {"thread_id": st.session_state.thread_id}}
+        result = graph.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
+        answer, sources = extract_answer_and_sources(result)
+
         if sources:
-            response["answer"] = f"{response['answer']} \n\n**Sources**:\n\n" + "\n\n".join(sources) + "\n"
+            answer = f"{answer} \n\n**Sources**:\n\n" + "\n\n".join(sources) + "\n"
 
         with st.chat_message("assistant"):
-            st.markdown(response["answer"])
-        st.session_state.conversation.extend([HumanMessage(content=prompt), response["answer"]])
-        st.session_state.messages.append({"role": "assistant", "content": response["answer"]})
-        
-        ##escaped_prompt = json.dumps(prompt)
-        answer = response["answer"]
+            st.markdown(answer)
+        st.session_state.messages.append({"role": "assistant", "content": answer})
+
         components.html(f"""
         <script>
           window.parent.parent.postMessage({{ type: 'prompt', prompt_data: {{'question':'{json.dumps(prompt)}','answer':'{json.dumps(answer)}'}} }}, '*');
-          
+
         </script>
         """, height=0)
 

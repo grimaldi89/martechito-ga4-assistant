@@ -10,9 +10,9 @@ Martechito is an AI Assistant designed to help you find GA4 information efficien
 
 ## Logic
 
-Martechito is powered by an AI engine that uses a Retrieval-Augmented Generation (RAG) pipeline with GPT-4 and Qdrant vector store. This setup enables the assistant to dynamically retrieve and integrate information from a rich knowledge base, providing contextually relevant and accurate responses based on GA4 documentation.
+Martechito is powered by an **agentic RAG** pipeline built with [LangGraph](https://langchain-ai.github.io/langgraph/) and OpenAI. Instead of a fixed "retrieve once, then generate" chain, the LLM itself decides when to search the knowledge base: it calls a `search_ga4_docs` tool, can issue additional, more refined searches if the first results aren't enough, and only answers once it judges the retrieved context sufficient — grounding every response in Qdrant vector store content.
 
-The RAG pipeline enhances Martechito’s ability to understand and respond to user queries by leveraging the Qdrant vector store to provide up-to-date, context-aware advice. This system ensures that the interaction remains coherent and insightful, adapting to the context of each conversation.
+Conversation memory is kept per chat session via a LangGraph checkpointer, so follow-up questions retain context automatically.
 
 ## Setup Instructions
 
@@ -38,7 +38,7 @@ Before installation, you must:
 2. **Navigate to the project directory:**
 
     ```bash
-    cd martechito-ga4-assistant/src/streamlit_app_local
+    cd martechito-ga4-assistant
     ```
 
 3. **Create and activate a virtual environment (optional but recommended):**
@@ -51,7 +51,7 @@ Before installation, you must:
 4. **Install the required packages (this may take a while):**
 
     ```bash
-    pip install -r requirements.txt
+    pip install -r src/streamlit_app/requirements.txt
     ```
 
 5. **Create a `.env` file based on the `.env.example`:**
@@ -71,14 +71,16 @@ Before installation, you must:
 1. **Extract and load the documents into the Qdrant cluster (this may take a while):**
 
     ```bash
-    python3 load_qdrant_vector_db.py
+    pip install -r scripts/ingest_ga4_docs/requirements.txt
+    python3 scripts/ingest_ga4_docs/ingest.py
     ```
     You should run this file only once, otherwise it will generate duplicated chunks in the DB.
 
 2. **Start the Streamlit application:**
 
     ```bash
-    streamlit run streamlit_app.py
+    cd src/streamlit_app
+    streamlit run src/streamlit_app.py
     ```
 
     This will start the Streamlit server. You should see output indicating the local URL where the app is being served, typically `http://localhost:8501`.
