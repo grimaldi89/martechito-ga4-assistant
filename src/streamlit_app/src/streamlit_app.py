@@ -4,7 +4,6 @@ import logging
 import json
 import threading
 import uuid
-import streamlit.components.v1 as components
 from langchain_core.messages import HumanMessage
 from agent import build_graph, estimate_cost
 from analytics import log_login, log_interaction
@@ -13,6 +12,19 @@ from envs import LINKEDIN_URL, GITHUB_URL, LINKEDIN_IMAGE, GITHUB_IMAGE, OPENAI_
 # Configurações iniciais
 def setup_logging():
     logging.basicConfig(level=logging.INFO)
+
+def push_dataLayer_event(event_name, **params):
+    """Push a custom event to the dataLayer on the page GTM is loaded on
+    (injected into Streamlit's own static shell by inject_ga.py). Needed
+    because Streamlit is a single-page app - GTM's default "All Pages"
+    trigger only fires once, on initial load, not on chat/login actions."""
+    payload = json.dumps({"event": event_name, **params})
+    st.iframe(f"""
+    <script>
+      window.parent.dataLayer = window.parent.dataLayer || [];
+      window.parent.dataLayer.push({payload});
+    </script>
+    """, height=1)
 
 def setup_page():
     st.set_page_config(
@@ -104,6 +116,7 @@ def main():
     if not st.session_state.get("login_logged"):
         user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
         threading.Thread(target=log_login, args=(user_info,), daemon=True).start()
+        push_dataLayer_event("login", method="google", user_email=st.user.email)
         st.session_state["login_logged"] = True
 
     # Barra lateral
@@ -231,13 +244,12 @@ def main():
 
         user_info = {"email": st.user.email, "name": st.user.name, "picture": st.user.picture}
         threading.Thread(target=log_interaction, args=(user_info, prompt, answer), daemon=True).start()
-
-        components.html(f"""
-        <script>
-          window.parent.parent.postMessage({{ type: 'prompt', prompt_data: {{'question':'{json.dumps(prompt)}','answer':'{json.dumps(answer)}'}} }}, '*');
-
-        </script>
-        """, height=0)
+        push_dataLayer_event(
+            "chat_message",
+            user_email=st.user.email,
+            message_length=len(prompt),
+            has_sources=bool(sources),
+        )
 
 if __name__ == "__main__":
     main()
